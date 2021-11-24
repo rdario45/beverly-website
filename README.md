@@ -1,11 +1,21 @@
 # Beverly website
 
+## Table of Content 
+
+- Requirements
+
+## Requirements
+- npm
+
+```
+npm run build
+```
+
 ## Available Scripts
 
 - `yarn start`
 - `yarn test`
 - `yarn build`
-
 
 ### Analyzing the Bundle Size
 

@@ -1,4 +1,5 @@
 import './App.css';
+import LoginButton from './button.js'
 
 function App() {
   return (
@@ -7,7 +8,10 @@ function App() {
         <p>
           Hola Nata, esta es tu aplicacion de beverly!.
         </p>
+        <LoginButton />
       </header>
+
+      <LoginButton />
     </div>
   );
 }
