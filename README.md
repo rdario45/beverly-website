@@ -1,5 +1,8 @@
 # Beverly website
 
+- inject the handlers 
+
+
 ## Table of Content 
 
 - Requirements
