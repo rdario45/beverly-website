@@ -2,17 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Auth0Provider } from "@auth0/auth0-react";
+import Amplify  from 'aws-amplify';
+
+Amplify.configure({
+  aws_cognito_region: "us-west-1",
+  aws_user_pools_id:  "us-west-1_2WoMfqgfe",
+  aws_user_pools_web_client_id: "191jjt0uesl3cifk3fafsf9jg3",
+  aws_cognito_identity_pool_id: "", // (optional) - Amazon Cognito Identity Pool ID
+  aws_mandatory_sign_in: "enable" // (optional) - Users are not allowed to get the aws credentials unless they are signed in
+})
 
 ReactDOM.render(
-  <Auth0Provider
-    domain="dev-lgnff21h.us.auth0.com"
-    clientId="0fRNQ2pe0Nxna5I7b2aiaB0cEPst9Ohf"
-    redirectUri={window.location.origin}
-  >
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-  </Auth0Provider>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
+

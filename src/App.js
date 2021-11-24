@@ -1,5 +1,5 @@
 import './App.css';
-import LoginButton from './button.js'
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 function App() {
   return (
@@ -8,12 +8,10 @@ function App() {
         <p>
           Hola Nata, esta es tu aplicacion de beverly!.
         </p>
-        <LoginButton />
       </header>
-
-      <LoginButton />
+      <AmplifySignOut />
     </div>
   );
 }
 
-export default App;
+export default withAuthenticator(App);
