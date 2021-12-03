@@ -3,11 +3,21 @@ function reducer(state, action) {
   switch (action.type) {
     case 'clients':
       return {...state, clients: action.payload.data };
-    case 'signin':
-      return {...state, token: action.payload };
     default:
       throw new Error();
   }
 }
 
-export default reducer;
+function setToken(userToken) {
+  sessionStorage.setItem('token', JSON.stringify(userToken));
+}
+
+function getToken() {
+  return JSON.parse(sessionStorage.getItem('token'));
+}
+
+export {
+  reducer,
+  setToken,
+  getToken
+};

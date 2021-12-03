@@ -1,29 +1,16 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import api from '../api';
-
-const initialState = {telephone: '', code: ''}
+import { useState } from 'react';
+import { setToken as setTokenStore, getToken } from '../store/index';
 
 function useLoginHook() {
-  const [state, setIsOnline] = useState(initialState);
-  const [cel, setCel] = useState(null);
-  const [code, setCode] = useState(null);
 
-  function signin(cel, code) {
-    setIsOnline(true);
-    setCel(cel);
-    setCode(code);
-  }
+    const [token, setToken] = useState(getToken())
 
-  useEffect(() => {
-    api.signin(cel, code).then( r => {
-        console.log(r);
-    });
-    return () => {
-        localStorage.clear();
-    };
-  });
+    function setAccessToken(token) {
+        setToken(token)
+        setTokenStore(token)
+    }
 
-  return [state, signin];
+    return [token, setAccessToken];
 }
 
 export default useLoginHook

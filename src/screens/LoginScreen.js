@@ -1,28 +1,26 @@
-import React from 'react';
-import useLoginHook from '../hooks/login'
-function LoginScreen() {
+import React, { useEffect, useState } from 'react';
+import api from '../api'
 
-  const [state, signIn] = useLoginHook();
-
-  const handleChange=(event) => {
-    this.setState({value: event.target.value});
-  }
+function LoginScreen({ setToken }) {
+  const [telephone, setTelephone] = useState(null)
+  const [code, setCode] = useState(null)
 
   const handleSubmit=(event) => {
-    alert('An essay was submitted: ' + state.value);
     event.preventDefault();
-    signIn(state.telephone, state.code);
+    api.signin(telephone, code).then(response => {
+      setToken(response.data);
+    });
   }
 
   return(
     <form onSubmit={handleSubmit}>
       <label>
         <p>telephone</p>
-        <input type="text" value={state.telephone} onChange={handleChange}/>
+        <input type="text" onChange={e => setTelephone(e.target.value)}/>
       </label>
       <label>
         <p>code</p>
-        <input type="text" value={state.code} onChange={handleChange}/>
+        <input type="text" onChange={e => setCode(e.target.value)}/>
       </label>
       <div>
         <button type="submit">Submit</button>
@@ -30,6 +28,5 @@ function LoginScreen() {
     </form>
   )
 }
-
 
 export default LoginScreen;
