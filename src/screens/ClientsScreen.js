@@ -1,20 +1,18 @@
 import { useReducer, useEffect } from 'react';
+import { globalReducer } from '../store'
 import ClientList from '../components/ClientsList';
-import { reducer } from '../store'
 import api from '../api'
 
-const initialState = { clients:[] };
-
 function ClientsScreen () {   
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(globalReducer, { clients:[] });
 
     useEffect(() => {
-        api.clients().then((data) => {
-            dispatch({
-                type: "clients",
-                payload: data
-            });
-        });
+        // api.clients().then((data) => {
+        //     dispatch({
+        //         type: "clients",
+        //         payload: data
+        //     });
+        // });
     }, []);
 
     return (

@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import api from '../api'
+import React, { useState } from 'react';
+import SingUp from '../components/SingUp';
+import SingIn from '../components/SignIn';
 
-function LoginScreen({ setToken }) {
-  const [telephone, setTelephone] = useState(null)
-  const [code, setCode] = useState(null)
+function LoginScreen({ login }) {
+  const [online, setOnline] = useState(true);
 
-  const handleSubmit=(event) => {
-    event.preventDefault();
-    api.signin(telephone, code).then(response => {
-      setToken(response.data);
-    });
-  }
-
-  return(
-    <form onSubmit={handleSubmit}>
-      <label>
-        <p>telephone</p>
-        <input type="text" onChange={e => setTelephone(e.target.value)}/>
-      </label>
-      <label>
-        <p>code</p>
-        <input type="text" onChange={e => setCode(e.target.value)}/>
-      </label>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  )
+  return( online ? 
+    <SingIn login={login} setOnline={setOnline}/> : 
+    <SingUp login={login} setOnline={setOnline}/> )
 }
 
 export default LoginScreen;

@@ -1,15 +1,16 @@
 
-function ClientList (props) {
-     
-    return (
-        <div className="Table">
-            <ul>
-                { props.clients.map((client, key) => 
-                    <li key={key}>{client.name + client.telephone}</li>
-                )}
-            </ul>
-        </div>
-    ) 
+function ClientList({ clients }) {
+
+	return (
+		<div className="Table">
+			<ul>
+				{
+					clients.map((client, key) =>
+						<li key={key}>{client.name + client.telephone}</li>)
+				}
+			</ul>
+		</div>
+	)
 }
 
 
