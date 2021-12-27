@@ -2,6 +2,7 @@ import { geAccessToken } from '../store/index'
 
 let useSSL = false;
 let host = 'localhost';
+// let host = '13.57.28.130';
 let url = `${useSSL?`https`:'http'}://${host}`;
 
 const API = {

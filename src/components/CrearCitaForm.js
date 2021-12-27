@@ -1,6 +1,6 @@
 import { Form, Col, Row, Button } from "react-bootstrap";
 import BasicTimePicker from "./TimePicker"
-import { VscAdd } from "react-icons/vsc"
+import { VscAdd, VscClose } from "react-icons/vsc"
 import API from "../api/index"
 
 function CrearCitaForm({ selectedDate, handleDateChange, cita, dispatch }) {
@@ -10,18 +10,15 @@ function CrearCitaForm({ selectedDate, handleDateChange, cita, dispatch }) {
     }
 
     const onSave = () => {
-        const nCita = Object.assign(cita,
-            {
+        const nCita = Object.assign(cita,{
                 hora: selectedDate.getTime().toString()
             })
         API.guardarCita(nCita).then(body => { });
     }
 
-
-
     const setClienta = (clienta) => {
         dispatch({
-            type: "edit",
+            type: "form",
             payload: Object.assign(cita, { clienta })
         })
     }
@@ -29,7 +26,7 @@ function CrearCitaForm({ selectedDate, handleDateChange, cita, dispatch }) {
 
     const setAgenda = (agenda) => {
         dispatch({
-            type: "edit",
+            type: "form",
             payload: Object.assign(cita, { agenda })
         })
     }
@@ -37,21 +34,28 @@ function CrearCitaForm({ selectedDate, handleDateChange, cita, dispatch }) {
     const handleChange = (attrib, key, value) => {
         cita.servicios[key][attrib] = value;
         dispatch({
-            type: "edit",
+            type: "form",
             payload: Object.assign(cita, { servicios: cita.servicios })
         })
     }
 
     const addServicio = () => {
         dispatch({
-            type: "edit",
+            type: "form",
             payload: Object.assign(cita, { servicios: cita.servicios.concat({}) })
+        })
+    }
+
+    const reduceServicio = () => {
+        cita.servicios.pop()
+        dispatch({
+            type: "form",
+            payload: Object.assign(cita, { servicios: cita.servicios })
         })
     }
 
     return (
         <>
-
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formPlaintextEmail">
                     <Form.Label> Hora: </Form.Label>
@@ -60,35 +64,34 @@ function CrearCitaForm({ selectedDate, handleDateChange, cita, dispatch }) {
 
                 <Form.Group controlId="formPlaintextEmail">
                     <Form.Label> Clienta </Form.Label>
-                    <Form.Control value={cita.clienta} onChange={e => setClienta(e.target.value)} />
+                    <Form.Control size="lg" value={cita.clienta} onChange={e => setClienta(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formPlaintextEmail">
                     <Form.Label> Agenda </Form.Label>
-                    <Form.Control value={cita.agenda} onChange={e => setAgenda(e.target.value)} />
+                    <Form.Control size="lg" value={cita.agenda} onChange={e => setAgenda(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formPlaintextPassword">
                     <Form.Label> Servicios </Form.Label>
                     {cita.servicios.map((servicio, key) =>
                         <Row key={key}>
-                            <Col>
-                                <Form.Control value={servicio.nombre} placeholder="nombre" onChange={e => handleChange("nombre", key, e.target.value)} />
+                            <Col md={7}>
+                                <Form.Control value={servicio.nombre} placeholder="Nombre" onChange={e => handleChange("nombre", key, e.target.value)} />
                             </Col>
                             <Col>
-                                <Form.Control value={servicio.valor} placeholder="valor" onChange={e => handleChange("valor", key, e.target.value)} />
+                                <Form.Control value={servicio.valor} placeholder="Valor" onChange={e => handleChange("valor", key, e.target.value)} />
                             </Col>
                         </Row>
                     )}
                     <button onClick={() => addServicio()} ><VscAdd /></button>
+                    {cita.servicios.length > 1 && <button onClick={() => reduceServicio()} ><VscClose /></button>}
                 </Form.Group>
                 <Button style={{ width: "100%" }} variant="primary"
                     onClick={() => onSave()}> Guardar </Button>
             </Form>
-            
         </>
     )
 }
-{/* <pre>{JSON.stringify(cita)}</pre> */}
 
 export default CrearCitaForm;

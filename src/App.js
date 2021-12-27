@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import ClientsScreen from './screens/ClientsScreen'

@@ -5,7 +5,6 @@ const Sidebar = props => {
     <div style={{
       display: "flex",
       flexDirection: "column",
-      // margin: "10px",
       padding: "10px",
       // backgroundColor: "yellow",
     }}>

@@ -5,7 +5,6 @@
 
 function ClientsScreen () {   
     // const [state, dispatch] = useReducer(globalReducer, { clients:[] });
-
     // useEffect(() => {
         // api.clients().then((data) => {
         //     dispatch({
@@ -13,8 +12,7 @@ function ClientsScreen () {
         //         payload: data
         //     });
         // });
-    // }, []);                                                                                                                                                  nnnnnnnnnnnnnnnn
-
+    // }, []);
     return (
         <div>
             {/* <ClientList clients={state.clients} /> */}
