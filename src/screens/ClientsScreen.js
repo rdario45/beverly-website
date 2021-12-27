@@ -1,23 +1,23 @@
-import { useReducer, useEffect } from 'react';
-import { globalReducer } from '../store'
-import ClientList from '../components/ClientsList';
-import api from '../api'
+// import { useReducer, useEffect } from 'react';
+// import { globalReducer } from '../store'
+// import ClientList from '../components/ClientsList';
+// import api from '../api'
 
 function ClientsScreen () {   
-    const [state, dispatch] = useReducer(globalReducer, { clients:[] });
+    // const [state, dispatch] = useReducer(globalReducer, { clients:[] });
 
-    useEffect(() => {
+    // useEffect(() => {
         // api.clients().then((data) => {
         //     dispatch({
         //         type: "clients",
         //         payload: data
         //     });
         // });
-    }, []);
+    // }, []);                                                                                                                                                  nnnnnnnnnnnnnnnn
 
     return (
         <div>
-            <ClientList clients={state.clients} />
+            {/* <ClientList clients={state.clients} /> */}
         </div>
     )
 }

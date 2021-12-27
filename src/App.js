@@ -1,39 +1,82 @@
-import React from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import LoginScreen from './screens/LoginScreen'
+import { Container, Row, Col } from "react-bootstrap";
 import ClientsScreen from './screens/ClientsScreen'
 import AgendaScreen from './screens/AgendaScreen'
-import BalanceScreen from './screens/BalanceScreen'
 import ServiciosScreen from './screens/ServiciosScreen'
-// import Session from './components/Session'
-// import useAuth from './hooks/auth';
-import { Container, Row, Col } from "react-bootstrap";
+import { globalReducer } from './store'
 import Sidebar from "./components/Sidebar"
+import CrearCitaForm from "./components/CrearCitaForm";
+import API from "./api"
+
+const initialState = {  
+  agendas: [], 
+  form: {
+    clienta: null,
+    agenda: null,
+    servicios: []
+  } 
+}
 
 function App() {
-  // const [logout, login, token] = useAuth();
-  // if(!token) {
-  //    return <LoginScreen login={login}/>
-  // }
+  const [selectedDate, handleDateChange] = useState(new Date());
+  const [state, dispatch] = useReducer(globalReducer, 
+ initialState);
+  const onDelete = (agendaId, citaId) => {
+    API.eliminarCita(citaId).then((body) => {
+      dispatch({
+        type: "agendas",
+        payload: Object.assign([], state.agendas).map(agenda => {
+          if (agenda.id === agendaId) {
+            agenda.citas = agenda.citas.filter(cita => cita.id !== citaId);
+          }
+          return agenda;
+        })
+      });
+    });
+  }
+  const onUpdate = (cita) => {
+    dispatch({
+      type: "form",
+      payload: cita
+    });
+  }
+
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col>
+        <Col md={2}>
           <Sidebar />
         </Col>
 
-        <Col>
+        <Col md={7}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<AgendaScreen />} ></Route>
+              <Route path="/" element={<AgendaScreen
+                selectedDate={selectedDate}
+                handleDateChange={handleDateChange}
+                agendas={state.agendas}
+                onDelete={onDelete}
+                dispatch={dispatch}
+                onUpdate={onUpdate}
+              />} ></Route>
               <Route path="/clientes" element={<ClientsScreen />} ></Route>
               <Route path="/servicios" element={<ServiciosScreen />} ></Route>
             </Routes>
           </BrowserRouter>
         </Col>
 
-        <Col>
-          <div style={{ backgroundColor: "olive" }}> BLOCK </div>
+        <Col md={3}>
+          <div style={{
+            // backgroundColor: "olive" 
+          }}>
+            <CrearCitaForm
+              selectedDate={selectedDate}
+              handleDateChange={handleDateChange}
+              dispatch={dispatch}
+              cita={state.form}
+            />
+          </div>
         </Col>
 
       </Row>

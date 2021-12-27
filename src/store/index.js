@@ -5,6 +5,8 @@ function globalReducer(state, action) {
       return {...state, clients: action.payload };
     case 'agendas':
         return {...state, agendas: action.payload };
+    case 'form':
+      return {...state, form: action.payload };
     default:
       throw new Error();
   }

@@ -6,14 +6,18 @@ body {
 
 #root {
   height: inherit;
-  background-color: #d2005f;
+  color: #d2005f;
+  background-color: #f78994;
   display: flex;
   flex-direction: row; 
   font-size: 34px;
+  padding-top: 12px;
+  /* font-family: 'Pushster', cursive; */
+  font-family: 'Dancing Script', cursive;
 }
 
-.balance {
+/* .balance {
   height: inherit;
   display: block;
   background-color: #f78994;
-} 
+}  */

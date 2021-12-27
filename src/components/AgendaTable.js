@@ -2,10 +2,10 @@
 import { Table } from "react-bootstrap"
 import { VscTrash, VscEdit, VscAdd } from "react-icons/vsc"
 
-const Agenda = ({ id, manicurista, citas, onDelete }) => {
+const Agenda = ({ id, manicurista, citas, onDelete, onUpdate }) => {
     return (
         <div>
-            <div> {manicurista} <button><VscAdd /></button> </div>
+            <div> { manicurista } </div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -27,8 +27,8 @@ const Agenda = ({ id, manicurista, citas, onDelete }) => {
                                 <td>{cita.clienta}</td>
                                 <td>{servicios}
                                     ${total}</td>
-                                <td onClick={ () => onDelete(id, cita.id) }><button><VscTrash /></button></td>
-                                <td><button><VscEdit /></button></td>
+                                <td ><button onClick={ () => onDelete(id, cita.id)}> <VscTrash /></button></td>
+                                <td><button onClick={ () => onUpdate(cita)}> <VscEdit /></button></td>
                             </tr>
                         )
                     }

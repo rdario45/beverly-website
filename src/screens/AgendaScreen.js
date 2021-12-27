@@ -1,19 +1,17 @@
 
-import { useReducer, useEffect, useState, useRef } from 'react';
-import { globalReducer } from '../store'
-import Agenda from "../components/Agenda"
-import API from "../api"
+import { useEffect } from 'react';
+import AgendaTable from "../components/AgendaTable"
 import BasicDatePicker from '../components/DatePicker';
-import { VscAdd } from "react-icons/vsc"
+import API from "../api"
+import { IoReload } from "react-icons/io5";
+import { Button } from "react-bootstrap"
 
-function AgendaScreen() {
-    const [state, dispatch] = useReducer(globalReducer, { agendas: [] });
-    const [selectedDate, handleDateChange] = useState(new Date());
+function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispatch, onUpdate }) {
     const fecha = new Date(selectedDate.toDateString()).getTime().toString()
 
     useEffect(() => {
         API.agendas(fecha).then((body) => {
-            console.log("data", body)
+            // console.log("data", body)
             dispatch({
                 type: "agendas",
                 payload: body.data
@@ -21,39 +19,34 @@ function AgendaScreen() {
         });
     }, [fecha]);
 
-    const onDelete = (agendaId, citaId) => {
-        API.eliminarCita(citaId).then((body) => {            
-            console.log("s.agendas", Object.assign([], state.agendas))
-            dispatch({
-                type: "agendas",
-                payload: Object.assign([], state.agendas).map(agenda => {
-                    if ( agenda.id === agendaId ) {
-                        agenda.citas = agenda.citas.filter(cita => cita.id !== citaId);
-                    }
-                    return agenda;             
-                })
-            });
-        });
+    const onDeleteC = (agendaId, citaId) => {
+        onDelete(agendaId, citaId);
+    }
+    const onUpdateC = (cita) => {
+        onUpdate(cita);
     }
 
     return (
         <div style={{
-            backgroundColor: "red"
-        }}> Agenda:
-
-            <BasicDatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
-
-            {state.agendas.map((agenda, key) => {
-                const date = new Date(parseInt(agenda.fecha));
+            // backgroundColor: "red"
+        }}> 
+        Agenda:
+        <BasicDatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
+        <button><IoReload/></button>
+        <Button><IoReload/></Button>
+        
+            
+            {agendas.map((agenda, key) => {
                 return (
                     <div key={key}>
-                        <Agenda {...agenda} 
-                        onDelete={onDelete}/>
+                        <AgendaTable
+                            onDelete={onDeleteC}
+                            onUpdate={onUpdateC}
+                            {...agenda}
+                        />
                     </div>
                 )
             })}
-
-            <button style={{ width: "100%" }}><VscAdd /></button>
 
         </div>
     )

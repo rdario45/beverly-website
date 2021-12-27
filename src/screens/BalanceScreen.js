@@ -1,6 +1,6 @@
-import StackedColumnChart from "../components/StackedColumnChart"
+// import StackedColumnChart from "../components/StackedColumnChart"
 
-function BalanceScreen () {
+export default function BalanceScreen () {
     return (
         <div className="balance">  Balance Parent
             
@@ -10,10 +10,7 @@ function BalanceScreen () {
 
             <div className="sibling"> Balance sibling  </div>    
 
-
             {/* <StackedColumnChart/> */}
         </div>
     )
 }
-
-export default BalanceScreen;

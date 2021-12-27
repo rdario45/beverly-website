@@ -1,13 +1,13 @@
 import DateFnsUtils from '@date-io/date-fns';
 import {
-  DatePicker,
+  TimePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-export default function BasicDatePicker({ handleDateChange, selectedDate }) {
+export default function BeverlyTimePicker({ handleDateChange, selectedHour }) {
     return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DatePicker value={selectedDate} onChange={handleDateChange} />
+        <TimePicker value={selectedHour} onChange={handleDateChange} />
     </MuiPickersUtilsProvider>
   );
 }
