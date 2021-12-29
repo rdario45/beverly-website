@@ -3,7 +3,7 @@
 // import ClientList from '../components/ClientsList';
 // import api from '../api'
 
-function ClientsScreen () {   
+function ClientesScreen () {   
     // const [state, dispatch] = useReducer(globalReducer, { clients:[] });
     // useEffect(() => {
         // api.clients().then((data) => {
@@ -20,4 +20,4 @@ function ClientsScreen () {
     )
 }
 
-export default ClientsScreen;
+export default ClientesScreen;

@@ -2,9 +2,9 @@
 import { Table } from "react-bootstrap"
 import { VscTrash, VscEdit } from "react-icons/vsc"
 
-const Agenda = ({ id, manicurista, citas, onDelete, onUpdate }) => {
+const AgendaTable = ({ id, manicurista, citas, onDelete, onUpdate }) => {
     return (
-        <div>
+        <>
             <div> { manicurista } </div>
             <Table striped bordered hover>
                 <thead>
@@ -34,9 +34,8 @@ const Agenda = ({ id, manicurista, citas, onDelete, onUpdate }) => {
                     )}
                 </tbody>
             </Table>
-        </div>
-
+        </>
     )
 }
 
-export default Agenda;
+export default AgendaTable;

@@ -4,7 +4,6 @@ import AgendaTable from "../components/AgendaTable"
 import BasicDatePicker from '../components/DatePicker';
 import API from "../api"
 import { IoReload } from "react-icons/io5";
-import { Spinner } from "react-bootstrap"
 
 function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispatch, onUpdate }) {
     const fecha = new Date(selectedDate.toDateString()).getTime().toString()
@@ -39,7 +38,6 @@ function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispa
                     </div>
                 )
             })}
-
         </div>
     )
 }
