@@ -45,20 +45,13 @@ function App() {
 
   return (
     <Container fluid>
-
-      <Row style={{
-      }}>
-
-        <Col md={8} style={{
-        }}>
-
-          <Stack direction="vertical" >
-            
+      <Row>
+        <Col md={8}>
+          <Stack direction="vertical" >            
             <Header
               selectedDate={selectedDate}
               handleDateChange={handleDateChange}
             />
-
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<AgendasScreen
@@ -74,13 +67,8 @@ function App() {
               </Routes>
             </BrowserRouter>
           </Stack>
-
         </Col>
-
-        <Col md={4} style={{
-          // backgroundColor: "olive"
-        }}>
-
+        <Col md={4}>
           <Stack direction="vertical" gap={5}>
             <CrearCitaForm
               selectedDate={selectedDate}
@@ -88,9 +76,7 @@ function App() {
               dispatch={dispatch}
               cita={state.form}
             />
-
             <Button size="lg"><IoReload /></Button>
-
           </Stack>
         </Col>
       </Row>

@@ -5,7 +5,7 @@ import AgendaTable from "../components/AgendaTable"
 import API from "../api"
 
 function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispatch, onUpdate }) {
-    
+
     const fecha = new Date(selectedDate.toDateString()).getTime().toString()
 
     useEffect(() => {
@@ -21,24 +21,24 @@ function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispa
         <div style={{
             textAlign: "center"
         }}>
-        
-        <br/>
-            {agendas.filter(agenda => agenda.citas.length > 0).map((agenda, key) => {
-                return (
-                    <Row key={key}  style={{
+
+            <br />
+            {
+                agendas.filter(agenda => agenda.citas.length > 0).length > 0 ?
+                    agendas.filter(agenda => agenda.citas.length > 0).map((agenda, key) =>
+                        <Row key={key} style={{
                             padding: "0px 20px",
                         }}>
-                        <div style={{
-                            paddingLeft: "20px"
-                        }}> { agenda.manicurista } </div>
-                        <AgendaTable
-                            onDelete={onDelete}
-                            onUpdate={onUpdate}
-                            {...agenda}
-                        />
-                    </Row>
-                )
-            })}
+                            <div style={{
+                                paddingLeft: "20px"
+                            }}> {agenda.manicurista} </div>
+                            <AgendaTable
+                                onDelete={onDelete}
+                                onUpdate={onUpdate}
+                                {...agenda}
+                            />
+                        </Row>) : <div>Crea una Cita</div>
+            }
         </div>
     )
 }
