@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import { Offcanvas } from "react-bootstrap";
 
 const Sidebar = props => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <div style={{
-      display: "flex",
-      flexDirection: "column",
-      padding: "10px",
-      // backgroundColor: "yellow",
     }}>
+      <div onClick={handleShow} style={{
+        padding: "15px"
+      }}> Beverly  </div>
 
-      <div> Beverly </div>
-      <ul>
-        <li>
-          <a href="/"> [Agenda] </a>
-        </li>
-        <li>
-          <a href="/clients"> [Clientes] </a>
-        </li>
-        <li>
-          <a href="/servicios"> [Servicios] </a>
-        </li>
-      </ul>
+      
+        <Offcanvas show={show} onHide={handleClose}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title> Beverly </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+
+            <ul>
+              <li>
+                <a href="/"> [Agendas] </a>
+              </li>
+              <li>
+                <a href="/clients"> [Clientes] </a>
+              </li>
+              <li>
+                <a href="/servicios"> [Servicios] </a>
+              </li>
+            </ul>
+
+          </Offcanvas.Body>
+        </Offcanvas>
     </div>
   );
 };

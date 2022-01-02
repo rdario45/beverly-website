@@ -1,11 +1,11 @@
 
 import { useEffect } from 'react';
+import { Row } from "react-bootstrap";
 import AgendaTable from "../components/AgendaTable"
-import BasicDatePicker from '../components/DatePicker';
 import API from "../api"
-import { IoReload } from "react-icons/io5";
 
 function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispatch, onUpdate }) {
+    
     const fecha = new Date(selectedDate.toDateString()).getTime().toString()
 
     useEffect(() => {
@@ -19,23 +19,24 @@ function AgendaScreen({ selectedDate, handleDateChange, onDelete, agendas, dispa
 
     return (
         <div style={{
-            // backgroundColor: "red"
+            textAlign: "center"
         }}>
-            Agenda:
-            <BasicDatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
-            <button>
-                <IoReload />
-            </button>
-
-            {agendas.map((agenda, key) => {
+        
+        <br/>
+            {agendas.filter(agenda => agenda.citas.length > 0).map((agenda, key) => {
                 return (
-                    <div key={key}>
+                    <Row key={key}  style={{
+                            padding: "0px 20px",
+                        }}>
+                        <div style={{
+                            paddingLeft: "20px"
+                        }}> { agenda.manicurista } </div>
                         <AgendaTable
                             onDelete={onDelete}
                             onUpdate={onUpdate}
                             {...agenda}
                         />
-                    </div>
+                    </Row>
                 )
             })}
         </div>

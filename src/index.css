@@ -2,22 +2,27 @@ html ,
 body {
   margin: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 #root {
   height: inherit;
   color: #d2005f;
   background-color: #f78994;
-  display: flex;
-  flex-direction: row; 
   font-size: 34px;
   padding-top: 12px;
-  /* font-family: 'Pushster', cursive; */
   font-family: 'Dancing Script', cursive;
 }
 
-/* .balance {
-  height: inherit;
-  display: block;
-  background-color: #f78994;
-}  */
+/* ul > li > a {
+  margin-left: -10px;
+} */
+
+#agendaId {
+  font-size: 48px;
+}
+
+#agendaId > div {
+  padding-top: 30px;
+  padding-left: 10px;
+}
