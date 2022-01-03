@@ -1,9 +1,8 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Container, Row, Col, Button, Stack } from "react-bootstrap";
-import { IoReload } from "react-icons/io5";
+import { Container, Row, Col, Stack } from "react-bootstrap";
 import { globalReducer } from './store'
-import Header from "./components/Header"
+import BeverlyHeader from "./components/BeverlyHeader"
 import AgendasScreen from './screens/AgendasScreen'
 import ClientesScreen from './screens/ClientesScreen'
 import ServiciosScreen from './screens/ServiciosScreen'
@@ -12,6 +11,7 @@ import API from "./api"
 
 const initialState = {
   agendas: [],
+  fecha: new Date(),
   form: {
     clienta: "",
     agenda: "",
@@ -20,9 +20,15 @@ const initialState = {
 }
 
 function App() {
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [state, dispatch] = useReducer(globalReducer,
-    initialState);
+  const [state, dispatch] = useReducer(globalReducer, initialState);
+
+  const updateFecha = (fecha) => {
+    dispatch({
+      type: "fecha",
+      payload: fecha
+    });
+  }
+
   const onDelete = (agendaId, citaId) => {
     API.eliminarCita(citaId).then((body) => {
       dispatch({
@@ -43,25 +49,37 @@ function App() {
     });
   }
 
+  const loadAgendas = (fecha) => {
+    API.agendas(fecha).then((body) => {
+      dispatch({
+          type: "agendas",
+          payload: body.data
+      });
+    });
+  }
+
   return (
     <Container fluid>
       <Row>
         <Col md={8}>
-          <Stack direction="vertical" >            
-            <Header
-              selectedDate={selectedDate}
-              handleDateChange={handleDateChange}
+          <Stack direction="vertical" >
+            <BeverlyHeader
+              selectedDate={state.fecha}
+              handleDateChange={updateFecha}
             />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<AgendasScreen
-                  selectedDate={selectedDate}
-                  handleDateChange={handleDateChange}
-                  agendas={state.agendas}
-                  onDelete={onDelete}
-                  dispatch={dispatch}
-                  onUpdate={onUpdate}
-                />} ></Route>
+                <Route
+                  path="/"
+                  element={
+                    <AgendasScreen
+                      fecha={state.fecha}
+                      agendas={state.agendas}
+                      onDelete={onDelete}
+                      dispatch={dispatch}
+                      onUpdate={onUpdate}
+                      loadAgendas={loadAgendas}
+                    />} ></Route>
                 <Route path="/clientes" element={<ClientesScreen />} ></Route>
                 <Route path="/servicios" element={<ServiciosScreen />} ></Route>
               </Routes>
@@ -69,15 +87,12 @@ function App() {
           </Stack>
         </Col>
         <Col md={4}>
-          <Stack direction="vertical" gap={5}>
             <CrearCitaForm
-              selectedDate={selectedDate}
-              handleDateChange={handleDateChange}
+              selectedDate={state.fecha}
+              updateFecha={updateFecha}
               dispatch={dispatch}
               cita={state.form}
             />
-            <Button size="lg"><IoReload /></Button>
-          </Stack>
         </Col>
       </Row>
     </Container>

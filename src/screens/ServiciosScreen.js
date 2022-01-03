@@ -1,10 +1,5 @@
-function ServiciosScreen () {   
-
-    return (
-        <div>
-            ServiciosScreen
-        </div>
-    )
+const ServiciosScreen = () => {   
+    <div> Servicios </div>
 }
 
 export default ServiciosScreen;

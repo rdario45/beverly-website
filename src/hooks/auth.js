@@ -8,28 +8,18 @@ import {
     cleanUserPhone  
 } from '../store/index';
 
-const initialValue = {
-    name: null,
-    phone: getUserPhone()
-}
-
 function useAuth() {
     const [token, setToken] = useState(geAccessToken())
-    const [user, setUser] = useState(initialValue);
+    const [phone, setPhone] = useState({phone: getUserPhone()})
 
     function logout () {
-        setToken(null);
-        setUser(null);
-        cleanUserPhone();
-        cleanAccessToken();
-        console.log('logout')
+        // setToken(null);
+        // cleanAccessToken();
     }
-    function login (phone, name, acces_token) {
-        console.log('login', phone, name, acces_token)
-        setToken(acces_token);
+    function login (phone, accessToken) {
+        console.log('login', phone, accessToken)
         storeAccessToken(token);
-        setUser(name);
-        storeUserPhone(phone);
+        // storeUserPhone(phone);
     }
 
     return [logout, login, token, user];
