@@ -22,6 +22,36 @@ const initialState = {
 function App() {
   const [state, dispatch] = useReducer(globalReducer, initialState);
 
+  const onSave = (cita) => {
+    const nuevaCita = Object.assign(cita, {
+      hora: state.fecha.getTime().toString()
+    })
+
+    if (cita.id) {
+      API.actualizarCita(nuevaCita, cita.id).then(body =>
+        dispatch({
+          type: "form",
+          payload: Object.assign({
+            clienta: "",
+            agenda: "",
+            servicios: [{ nombre: "", valor: "" }]
+          })
+        })
+      );
+    } else {
+      API.guardarCita(nuevaCita).then(body =>
+        dispatch({
+          type: "form",
+          payload: Object.assign({
+            clienta: "",
+            agenda: "",
+            servicios: [{ nombre: "", valor: "" }]
+          })
+        })
+      );
+    }
+  }
+
   const updateFecha = (fecha) => {
     dispatch({
       type: "fecha",
@@ -52,10 +82,47 @@ function App() {
   const loadAgendas = (fecha) => {
     API.agendas(fecha).then((body) => {
       dispatch({
-          type: "agendas",
-          payload: body.data
+        type: "agendas",
+        payload: body.data
       });
     });
+  }
+
+  const setClienta = (clienta, cita) => {
+    dispatch({
+      type: "form",
+      payload: Object.assign(cita, { clienta })
+    })
+  }
+
+  const setAgenda = (agenda, cita) => {
+    dispatch({
+      type: "form",
+      payload: Object.assign(cita, { agenda })
+    })
+  }
+
+  const handleChange = (attrib, key, value, cita) => {
+    cita.servicios[key][attrib] = value;
+    dispatch({
+      type: "form",
+      payload: Object.assign(cita, { servicios: cita.servicios })
+    })
+  }
+
+  const moreServicios = (cita) => {
+    dispatch({
+      type: "form",
+      payload: Object.assign(cita, { servicios: cita.servicios.concat({ nombre: "" }) })
+    })
+  }
+
+  const lessServicios = (cita) => {
+    cita.servicios.pop()
+    dispatch({
+      type: "form",
+      payload: Object.assign(cita, { servicios: cita.servicios })
+    })
   }
 
   return (
@@ -76,7 +143,6 @@ function App() {
                       fecha={state.fecha}
                       agendas={state.agendas}
                       onDelete={onDelete}
-                      dispatch={dispatch}
                       onUpdate={onUpdate}
                       loadAgendas={loadAgendas}
                     />} ></Route>
@@ -87,12 +153,17 @@ function App() {
           </Stack>
         </Col>
         <Col md={4}>
-            <CrearCitaForm
-              selectedDate={state.fecha}
-              updateFecha={updateFecha}
-              dispatch={dispatch}
-              cita={state.form}
-            />
+          <CrearCitaForm
+            fecha={state.fecha}
+            cita={state.form}
+            updateFecha={updateFecha}
+            setAgenda={setAgenda}
+            setClienta={setClienta}
+            handleChange={handleChange}
+            lessServicios={lessServicios}
+            moreServicios={moreServicios}
+            onSave={onSave}
+          />
         </Col>
       </Row>
     </Container>

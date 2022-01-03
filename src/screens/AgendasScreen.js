@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { Row } from "react-bootstrap";
 import AgendaTable from "../components/AgendaTable"
 
-function AgendaScreen({ fecha, onDelete, agendas, onUpdate, loadAgendas }) {
+function AgendaScreen({ fecha, agendas, onDelete, onUpdate, loadAgendas }) {
 
     useEffect(() => {
-       loadAgendas(new Date(fecha.toDateString()).getTime().toString());
+        loadAgendas(new Date(fecha.toDateString()).getTime().toString());
     }, [fecha]);
 
     const agendasConCitas = agendas.filter(agenda => agenda.citas.length > 0);
+    
     return (
         <div style={{
             textAlign: "center"
@@ -25,6 +26,7 @@ function AgendaScreen({ fecha, onDelete, agendas, onUpdate, loadAgendas }) {
                         <AgendaTable
                             onDelete={onDelete}
                             onUpdate={onUpdate}
+                            agendaId={agenda.id}
                             {...agenda}
                         />
                     </Row>) : <div>Crea una Cita</div>

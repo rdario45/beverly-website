@@ -2,7 +2,7 @@
 import { Table, Button } from "react-bootstrap"
 import { VscTrash, VscEdit } from "react-icons/vsc"
 
-const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
+const AgendaTable = ({ agendaId, citas, onDelete, onUpdate }) => {
     return (
         <Table striped bordered hover>
             <thead>
@@ -26,7 +26,7 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
                             <td>{xTime}</td>
                             <td>{cita.clienta}</td>
                             <td>{servicios}: {xTotal}</td>
-                            <td><Button onClick={() => onDelete(id, cita.id)}> <VscTrash /></Button></td>
+                            <td><Button onClick={() => onDelete(agendaId, cita.id)}> <VscTrash /></Button></td>
                             <td><Button onClick={() => onUpdate(cita)}> <VscEdit /></Button></td>
                         </tr>
                     )
