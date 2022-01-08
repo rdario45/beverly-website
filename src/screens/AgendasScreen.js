@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Row } from "react-bootstrap";
+import { Row, Carousel } from "react-bootstrap";
 import AgendaTable from "../components/AgendaTable"
 
 function AgendaScreen({ fecha, agendas, onDelete, onUpdate, loadAgendas }) {

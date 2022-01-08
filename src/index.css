@@ -2,11 +2,12 @@ html ,
 body {
   margin: 0;
   height: 100%;
-  overflow: hidden;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 #root {
-  height: inherit;
+  min-height: 100%;
   color: #d2005f;
   background-color: #f78994;
   font-size: 34px;

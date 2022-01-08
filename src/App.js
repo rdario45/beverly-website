@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Container, Row, Col, Stack } from "react-bootstrap";
+import { Stack, Modal } from "react-bootstrap";
 import { globalReducer } from './store'
 import BeverlyHeader from "./components/BeverlyHeader"
 import AgendasScreen from './screens/AgendasScreen'
@@ -21,6 +21,9 @@ const initialState = {
 
 function App() {
   const [state, dispatch] = useReducer(globalReducer, initialState);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const onSave = (cita) => {
     const nuevaCita = Object.assign(cita, {
@@ -72,6 +75,7 @@ function App() {
       });
     });
   }
+
   const onUpdate = (cita) => {
     dispatch({
       type: "form",
@@ -125,34 +129,42 @@ function App() {
     })
   }
 
+  const onSlide = (a) => {
+    console.log("onSlide", a);
+  }
+
+  const onSlidA = (b) => {
+    console.log("onSlid", b);
+  }
+
   return (
-    <Container fluid>
-      <Row>
-        <Col md={8}>
-          <Stack direction="vertical" >
-            <BeverlyHeader
-              selectedDate={state.fecha}
-              handleDateChange={updateFecha}
-            />
-            <BrowserRouter>
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <AgendasScreen
-                      fecha={state.fecha}
-                      agendas={state.agendas}
-                      onDelete={onDelete}
-                      onUpdate={onUpdate}
-                      loadAgendas={loadAgendas}
-                    />} ></Route>
-                <Route path="/clientes" element={<ClientesScreen />} ></Route>
-                <Route path="/servicios" element={<ServiciosScreen />} ></Route>
-              </Routes>
-            </BrowserRouter>
-          </Stack>
-        </Col>
-        <Col md={4}>
+    <Stack direction="vertical">
+      <BeverlyHeader
+        selectedDate={state.fecha}
+        handleDateChange={updateFecha}
+        handleShow={handleShow}
+      />
+
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={<AgendasScreen
+              fecha={state.fecha}
+              agendas={state.agendas}
+              onDelete={onDelete}
+              onUpdate={onUpdate}
+              loadAgendas={loadAgendas}
+              onSlide={onSlide}
+              onSlid={onSlidA}
+            />}></Route>
+          <Route path="/clientes" element={<ClientesScreen />}></Route>
+          <Route path="/servicios" element={<ServiciosScreen />}></Route>
+        </Routes>
+      </BrowserRouter>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>
           <CrearCitaForm
             fecha={state.fecha}
             cita={state.form}
@@ -164,9 +176,9 @@ function App() {
             moreServicios={moreServicios}
             onSave={onSave}
           />
-        </Col>
-      </Row>
-    </Container>
+        </Modal.Body>
+      </Modal>
+    </Stack>
   );
 }
 

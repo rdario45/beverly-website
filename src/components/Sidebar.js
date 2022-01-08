@@ -9,7 +9,7 @@ const Sidebar = () => {
   return (
     <>
       <div onClick={handleShow} style={{
-        padding: "15px"
+        paddingLeft: "15px"
       }}> Beverly  </div>
 
       <Offcanvas show={show} onHide={handleClose}>
