@@ -1,40 +1,47 @@
-import { useEffect } from "react";
-import CanvasJSReact from "../canvasjs.react";
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-
-const options = {
-    exportEnabled: true,
-    animationEnabled: true,
-    title: {
-        text: "Resumen semana"
-    },
-    data: [{
-        type: "pie",
-        startAngle: 75,
-        toolTipContent: "<b>{label}</b>: {y}",
-        showInLegend: "true",
-        legendText: "{label}",
-        indexLabelFontSize: 16,
-        indexLabel: "{label} - {y}",
-        dataPoints: []
-    }]
-}
+import { useEffect, useState } from "react";
+import { Chart } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 function BalanceScreen({ fecha, balance, loadBalance }) {
 
-    useEffect(() => {
-        loadBalance(fecha);
-    }, [fecha]);
+  useEffect(() => {
+    loadBalance(fecha);
+  }, [fecha]);
 
-    options.data[0].dataPoints = Object.entries(balance).map((value, b) => ({ "y": value[1], "label": value[0] }));
+  console.log(Object.entries(balance).map(value => value[0]))
+  const data = {
+    labels: balance? Object.entries(balance).map(value => value[0]) : [],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: balance? Object.entries(balance).map(value => value[1]) : [],
+        backgroundColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
 
-    console.log("dataPoints", options.data[0].dataPoints)
 
-    return (
-        <div>
-            <CanvasJSChart options={options} />
-        </div>
-    )
+  return (
+    <div style={{ width: '30%', margin: '0 auto' }}>
+      <Chart type="pie" data={data} />
+    </div>
+  )
 }
 
 export default BalanceScreen;
