@@ -78,11 +78,8 @@ export default function useApp(initialState) {
     });
     handleShow();
 
-    console.log("cita.hora", cita.hora)
-
-    const newFecha = new Date();
+    const newFecha = new Date(); // TODO refect
     newFecha.setTime(cita.hora);
-
     dispatch({
       type: "fecha",
       payload: newFecha
@@ -180,7 +177,6 @@ export default function useApp(initialState) {
   }
 
   const onSelect = (number) => { // TODO refect
-    console.log("number", number)
     dispatch({
       type: "activeDay",
       payload: number

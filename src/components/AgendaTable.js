@@ -14,7 +14,7 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
                 </tr>
             </thead>
             <tbody>
-                {citas.map((cita, key) => {
+                {citas.sort((c1, c2) => c1.hora > c2.hora ? 1 : -1).map((cita, key) => {
                     const servicios = cita.servicios.map(servicio => servicio.nombre).join(", ");
                     const total = cita.servicios.map(s => parseInt(s.valor)).reduce((ant, sig) => (ant + sig), 0);
                     const time = new Date(parseInt(cita.hora));

@@ -6,7 +6,6 @@ function SingIn({ login, setOnline }) {
   const handleSubmit = (event) => {
     // event.preventDefault();
     api.signin("phone", "code").then(response => {
-      console.log("response", response);
         login(response.data); // access_token
     });
   }
