@@ -138,6 +138,30 @@ export default function useApp(initialState) {
     });
   }
 
+  const loadBalance = (fecha) => {
+
+    const calcWeekPeriod = (fecha) => {
+      const startDate = new Date(fecha.toDateString());
+      startDate.setDate(startDate.getDate() - fecha.getDay());
+      const finalDate = new Date(startDate.toDateString());
+      finalDate.setDate(startDate.getDate() + 6);
+      return [startDate, finalDate];
+    }
+    const [startDate, finalDate] = calcWeekPeriod(fecha);
+
+    API.balanceWeek(
+      new Date(startDate.toDateString()).getTime().toString(),
+      new Date(finalDate.toDateString()).getTime().toString()
+    ).then((body) => {
+
+      dispatch({
+        type: "balance",
+        payload: body.data
+      });
+
+    });
+  }
+
   const setCliente = (cliente, cita) => {
     dispatch({
       type: "form",
@@ -205,6 +229,7 @@ export default function useApp(initialState) {
     handleChange,
     moreServicios,
     lessServicios,
-    onSelect
+    onSelect,
+    loadBalance
   ]
 }

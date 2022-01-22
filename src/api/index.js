@@ -9,6 +9,7 @@ const API = {
     eliminarCita: (citaId) => fetch(`${process.env.REACT_APP_API}/citas/${citaId}?access_token=${geAccessToken()}`, { method: "DELETE" }).then(body => body.json()),
     guardarCita: (cita) => fetch(`${process.env.REACT_APP_API}/citas?access_token=${geAccessToken()}`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cita) }).then(body => body.json()),
     actualizarCita: (cita, citaId) => fetch(`${process.env.REACT_APP_API}/citas/${citaId}?access_token=${geAccessToken()}`, { method: "PUT", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cita) }).then(body => body.json()),
+    balanceWeek: (fechaIni, fechaFin) => fetch(`${process.env.REACT_APP_API}/agendas/balance/${fechaIni}/${fechaFin}?access_token=${geAccessToken()}`).then(body => body.json()),
 }
 
 export default API;

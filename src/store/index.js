@@ -10,7 +10,9 @@ function globalReducer(state, action) {
     case 'show':
       return {...state, show: action.payload };
     case 'activeDay':
-        return {...state, activeDay: action.payload };
+      return {...state, activeDay: action.payload };
+    case 'balance':
+      return {...state, balance: action.payload };
     default:
       throw new Error();
   }

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Stack, Modal } from "react-bootstrap";
 import BeverlyHeader from "./components/BeverlyHeader";
 import AgendasScreen from './screens/AgendasScreen';
+import BalanceScreen from './screens/BalanceScreen';
 import CrearCitaForm from "./components/CrearCitaForm";
 import useApp from "./hooks/useApp";
 import SignIn from './screens/SignIn';
@@ -14,6 +15,7 @@ const initialState = {
   fecha: new Date(),
   activeDay: 0,
   headerRef: React.createRef(null),
+  balance: {},
   form: {
     cliente: "",
     agenda: "",
@@ -45,6 +47,7 @@ function App() {
     addService,
     subService,
     onSelect,
+    loadBalance,
   ] = useApp(initialState);
 
   const [token, login] = useAuth({ token: null });
@@ -78,6 +81,13 @@ function App() {
                 loadAgendas={loadAgendas}
                 onSelect={onSelect}
                 activeDay={state.activeDay}
+              />}></Route>
+              <Route
+              path="/balance"
+              element={<BalanceScreen
+                fecha={state.fecha}
+                balance={state.balance}
+                loadBalance={loadBalance}
               />}></Route>
           </Routes>
         </BrowserRouter>
