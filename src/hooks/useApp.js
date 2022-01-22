@@ -59,15 +59,7 @@ export default function useApp(initialState) {
 
   const onDelete = (cita, agendaId) => {
     API.eliminarCita(cita.id).then((body) => {
-      dispatch({
-        type: "agendas",
-        payload: Object.assign([], state.agendas).map(agenda => {
-          if (agenda.id === agendaId) {
-            agenda.citas = agenda.citas.filter(x => x.id !== cita.id);
-          }
-          return agenda;
-        })
-      });
+      window.location.reload();
     });
   }
 
