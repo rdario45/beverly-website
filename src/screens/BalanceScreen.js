@@ -8,13 +8,12 @@ function BalanceScreen({ fecha, balance, loadBalance }) {
     loadBalance(fecha);
   }, [fecha]);
 
-  console.log(Object.entries(balance).map(value => value[0]))
   const data = {
-    labels: balance? Object.entries(balance).map(value => value[0]) : [],
+    labels: balance ? Object.entries(balance).map(value => value[0]) : [],
     datasets: [
       {
         label: '# of Votes',
-        data: balance? Object.entries(balance).map(value => value[1]) : [],
+        data: balance ? Object.entries(balance).map(value => value[1]) : [],
         backgroundColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
