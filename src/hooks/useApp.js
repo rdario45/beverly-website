@@ -92,7 +92,7 @@ export default function useApp(initialState) {
       const startDate = new Date(fecha.toDateString());
       startDate.setDate(startDate.getDate() - fecha.getDay());
       const finalDate = new Date(startDate.toDateString());
-      finalDate.setDate(fecha.getDate() + 6);
+      finalDate.setDate(startDate.getDate() + 6);
       return [startDate, finalDate];
     }
     const [startDate, finalDate] = calcWeekPeriod(fecha);
@@ -130,7 +130,6 @@ export default function useApp(initialState) {
         payload: newWeek
       });
 
-      console.log("focus", new Date(fecha).getDay() > 0 ? new Date(fecha).getDay() - 1 : 0)
       dispatch({
         type: "activeDay",
         payload: new Date(fecha).getDay() > 0 ? new Date(fecha).getDay() - 1 : 0
@@ -185,7 +184,6 @@ export default function useApp(initialState) {
     const newDate = new Date(state.fecha).getDate() - new Date(state.fecha).getDay() + number + 1;
     const newFecha = new Date(state.fecha).setDate(newDate);
 
-    console.log("newFecha", new Date(newFecha))
     dispatch({
       type: "fecha",
       payload: new Date(newFecha)
