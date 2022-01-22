@@ -38,7 +38,7 @@ function BalanceScreen({ fecha, balance, loadBalance }) {
 
 
   return (
-    <div style={{ width: '30%', margin: '0 auto' }}>
+    <div style={{ width: '30%', margin: '50px auto' }}>
       <Chart type="pie" data={data} />
     </div>
   )
