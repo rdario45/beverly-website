@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Offcanvas } from "react-bootstrap";
 
-const Sidebar = () => {
+const BeverlySidebar = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -10,7 +10,7 @@ const Sidebar = () => {
     <>
       <div onClick={handleShow} style={{
         paddingLeft: "15px"
-      }}> Beverly  </div>
+      }}> Beverly </div>
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
@@ -19,8 +19,7 @@ const Sidebar = () => {
         <Offcanvas.Body>
           <ul>
             <li> <a href="/"> [Agendas] </a> </li>
-            <li> <a href="/clients"> [Clientes] </a> </li>
-            <li> <a href="/servicios"> [Servicios] </a></li>
+            <li> <a href="/balance"> [Balance] </a> </li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
@@ -28,4 +27,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default BeverlySidebar;

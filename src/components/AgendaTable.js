@@ -2,20 +2,20 @@
 import { Table, Button } from "react-bootstrap"
 import { VscTrash, VscEdit } from "react-icons/vsc"
 
-const AgendaTable = ({ agendaId, citas, onDelete, onUpdate }) => {
+const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
     return (
         <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>HORA</th>
-                    <th>CLIENTA</th>
+                    <th>CLIENTE</th>
                     <th>SERVICIOS</th>
                     <th colSpan="2"></th>
                 </tr>
             </thead>
             <tbody>
                 {citas.map((cita, key) => {
-                    const servicios = cita.servicios.map(servicio => `${servicio.nombre} `);
+                    const servicios = cita.servicios.map(servicio => servicio.nombre).join(", ");
                     const total = cita.servicios.map(s => parseInt(s.valor)).reduce((ant, sig) => (ant + sig), 0);
                     const time = new Date(parseInt(cita.hora));
                     const xTime = `${time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`
@@ -24,9 +24,9 @@ const AgendaTable = ({ agendaId, citas, onDelete, onUpdate }) => {
                     return (
                         <tr key={key}>
                             <td>{xTime}</td>
-                            <td>{cita.clienta}</td>
+                            <td>{cita.cliente}</td>
                             <td>{servicios}: {xTotal}</td>
-                            <td><Button onClick={() => onDelete(agendaId, cita.id)}> <VscTrash /></Button></td>
+                            <td><Button onClick={() => onDelete(cita, id)}> <VscTrash /></Button></td>
                             <td><Button onClick={() => onUpdate(cita)}> <VscEdit /></Button></td>
                         </tr>
                     )

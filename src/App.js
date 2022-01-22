@@ -1,179 +1,99 @@
-import React, { useReducer, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Stack, Modal } from "react-bootstrap";
-import { globalReducer } from './store'
-import BeverlyHeader from "./components/BeverlyHeader"
-import AgendasScreen from './screens/AgendasScreen'
-import ClientesScreen from './screens/ClientesScreen'
-import ServiciosScreen from './screens/ServiciosScreen'
+import BeverlyHeader from "./components/BeverlyHeader";
+import AgendasScreen from './screens/AgendasScreen';
 import CrearCitaForm from "./components/CrearCitaForm";
-import API from "./api"
+import useApp from "./hooks/useApp";
+import SignIn from './screens/SignIn';
+import useAuth from './hooks/useAuth';
+import useWindowDimensions from './hooks/useWindowDimensions';
 
 const initialState = {
-  agendas: [],
+  show: false,
   fecha: new Date(),
+  activeDay: 0,
+  headerRef: React.createRef(null),
   form: {
-    clienta: "",
+    cliente: "",
     agenda: "",
     servicios: [{}]
+  },
+  week: {
+    lunes: [],
+    martes: [],
+    miercoles: [],
+    jueves: [],
+    viernes: [],
+    sabado: [],
   }
 }
 
 function App() {
-  const [state, dispatch] = useReducer(globalReducer, initialState);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [
+    state,
+    handleShow,
+    handleClose,
+    onSave,
+    handleFecha,
+    onDelete,
+    onUpdate,
+    loadAgendas,
+    setCliente,
+    setAgenda,
+    handleChange,
+    addService,
+    subService,
+    onSelect,
+  ] = useApp(initialState);
 
-  const onSave = (cita) => {
-    const nuevaCita = Object.assign(cita, {
-      hora: state.fecha.getTime().toString()
-    })
-
-    if (cita.id) {
-      API.actualizarCita(nuevaCita, cita.id).then(body =>
-        dispatch({
-          type: "form",
-          payload: Object.assign({
-            clienta: "",
-            agenda: "",
-            servicios: [{ nombre: "", valor: "" }]
-          })
-        })
-      );
-    } else {
-      API.guardarCita(nuevaCita).then(body =>
-        dispatch({
-          type: "form",
-          payload: Object.assign({
-            clienta: "",
-            agenda: "",
-            servicios: [{ nombre: "", valor: "" }]
-          })
-        })
-      );
-    }
-  }
-
-  const updateFecha = (fecha) => {
-    dispatch({
-      type: "fecha",
-      payload: fecha
-    });
-  }
-
-  const onDelete = (agendaId, citaId) => {
-    API.eliminarCita(citaId).then((body) => {
-      dispatch({
-        type: "agendas",
-        payload: Object.assign([], state.agendas).map(agenda => {
-          if (agenda.id === agendaId) {
-            agenda.citas = agenda.citas.filter(cita => cita.id !== citaId);
-          }
-          return agenda;
-        })
-      });
-    });
-  }
-
-  const onUpdate = (cita) => {
-    dispatch({
-      type: "form",
-      payload: cita
-    });
-  }
-
-  const loadAgendas = (fecha) => {
-    API.agendas(fecha).then((body) => {
-      dispatch({
-        type: "agendas",
-        payload: body.data
-      });
-    });
-  }
-
-  const setClienta = (clienta, cita) => {
-    dispatch({
-      type: "form",
-      payload: Object.assign(cita, { clienta })
-    })
-  }
-
-  const setAgenda = (agenda, cita) => {
-    dispatch({
-      type: "form",
-      payload: Object.assign(cita, { agenda })
-    })
-  }
-
-  const handleChange = (attrib, key, value, cita) => {
-    cita.servicios[key][attrib] = value;
-    dispatch({
-      type: "form",
-      payload: Object.assign(cita, { servicios: cita.servicios })
-    })
-  }
-
-  const moreServicios = (cita) => {
-    dispatch({
-      type: "form",
-      payload: Object.assign(cita, { servicios: cita.servicios.concat({ nombre: "" }) })
-    })
-  }
-
-  const lessServicios = (cita) => {
-    cita.servicios.pop()
-    dispatch({
-      type: "form",
-      payload: Object.assign(cita, { servicios: cita.servicios })
-    })
-  }
-
-  const onSlide = (a) => {
-    console.log("onSlide", a);
-  }
-
-  const onSlidA = (b) => {
-    console.log("onSlid", b);
+  const [token, login] = useAuth({ token: null });
+  const dimensions = useWindowDimensions();
+  const header = state.headerRef.current;
+  if (!token) {
+    return <SignIn login={login} />
   }
 
   return (
     <Stack direction="vertical">
       <BeverlyHeader
+        headerRef={state.headerRef}
         selectedDate={state.fecha}
-        handleDateChange={updateFecha}
+        handleDateChange={handleFecha}
         handleShow={handleShow}
       />
 
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={<AgendasScreen
-              fecha={state.fecha}
-              agendas={state.agendas}
-              onDelete={onDelete}
-              onUpdate={onUpdate}
-              loadAgendas={loadAgendas}
-              onSlide={onSlide}
-              onSlid={onSlidA}
-            />}></Route>
-          <Route path="/clientes" element={<ClientesScreen />}></Route>
-          <Route path="/servicios" element={<ServiciosScreen />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <div style={{
+        height: dimensions.height - (header != null ? header.clientHeight : 0)
+      }}>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={<AgendasScreen
+                fecha={state.fecha}
+                week={state.week}
+                onDelete={onDelete}
+                onUpdate={onUpdate}
+                loadAgendas={loadAgendas}
+                onSelect={onSelect}
+                activeDay={state.activeDay}
+              />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={state.show} onHide={handleClose}>
         <Modal.Body>
           <CrearCitaForm
             fecha={state.fecha}
             cita={state.form}
-            updateFecha={updateFecha}
+            handleFecha={handleFecha}
             setAgenda={setAgenda}
-            setClienta={setClienta}
+            setCliente={setCliente}
             handleChange={handleChange}
-            lessServicios={lessServicios}
-            moreServicios={moreServicios}
+            addService={addService}
+            subService={subService}
             onSave={onSave}
           />
         </Modal.Body>

@@ -1,14 +1,16 @@
 
 function globalReducer(state, action) {
   switch (action.type) {
-    case 'clients':
-      return {...state, clients: action.payload };
-    case 'agendas':
-        return {...state, agendas: action.payload };
     case 'form':
       return {...state, form: action.payload };
     case 'fecha':
         return {...state, fecha: action.payload };
+    case 'week':
+        return {...state, week: action.payload };
+    case 'show':
+      return {...state, show: action.payload };
+    case 'activeDay':
+        return {...state, activeDay: action.payload };
     default:
       throw new Error();
   }
@@ -19,8 +21,7 @@ function storeAccessToken(accessToken) {
 }
 
 function geAccessToken() {
-  // return JSON.parse(sessionStorage.getItem('access_token'));
-  return "123456";
+  return JSON.parse(sessionStorage.getItem('access_token'));
 }
 
 function cleanAccessToken() {

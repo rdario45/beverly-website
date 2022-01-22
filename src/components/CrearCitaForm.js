@@ -1,8 +1,8 @@
-import { Form, Col, Row, Button, Stack } from "react-bootstrap";
-import { VscAdd, VscClose } from "react-icons/vsc"
+import { Form, Col, Row, Button, Stack, InputGroup } from "react-bootstrap";
+import { VscAdd, VscClose, VscCalendar } from "react-icons/vsc"
 import BasicTimePicker from "./TimePicker"
 
-function CrearCitaForm({ fecha, updateFecha, cita, onSave, setAgenda, setClienta, handleChange, lessServicios, moreServicios }) {
+function CrearCitaForm({ fecha, handleFecha, cita, onSave, setAgenda, setCliente, handleChange, subService, addService }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -13,9 +13,16 @@ function CrearCitaForm({ fecha, updateFecha, cita, onSave, setAgenda, setClienta
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formHora">
                     <Form.Label> Hora: </Form.Label>
-                    <Row style={{ padding: "10px 10px 10px 10px" }}>
-                        <BasicTimePicker handleDateChange={updateFecha} selectedHour={fecha} />
-                    </Row>
+                    <InputGroup>
+                        <InputGroup.Text>
+                            <VscCalendar />
+                        </InputGroup.Text>
+                        <div style={{
+                            paddingLeft: "5px"
+                        }}>
+                            <BasicTimePicker handleDateChange={handleFecha} selectedHour={fecha} />
+                        </div>
+                    </InputGroup>
                 </Form.Group>
 
                 <Form.Group controlId="formAgenda">
@@ -24,21 +31,22 @@ function CrearCitaForm({ fecha, updateFecha, cita, onSave, setAgenda, setClienta
                         <option ></option>
                         <option value="NATALIA">Natalia</option>
                         <option value="MARIA JOSE">Mra. Jose</option>
+                        <option value="PESTAÑAS">Pestañas</option>
                     </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="formCliente">
-                    <Form.Label> Clienta </Form.Label>
-                    <Form.Control size="lg" value={cita.clienta} onChange={e => setClienta(e.target.value, cita)} />
+                    <Form.Label> Cliente </Form.Label>
+                    <Form.Control size="lg" value={cita.cliente} onChange={e => setCliente(e.target.value, cita)} />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label> Servicios </Form.Label>
                     {cita.servicios.map((servicio, key) =>
                         <Row key={key} style={{
-                            paddingBottom: "5px"
+                            paddingBottom: "10px"
                         }}>
-                            <Col md={7}>
+                            <Col md={7} sm={7}>
                                 <Form.Control size="lg" value={servicio.nombre} placeholder="Nombre" onChange={e => handleChange("nombre", key, e.target.value, cita)} />
                             </Col>
                             <Col>
@@ -46,13 +54,11 @@ function CrearCitaForm({ fecha, updateFecha, cita, onSave, setAgenda, setClienta
                             </Col>
                         </Row>
                     )}
-
                     <Stack direction="horizontal">
-                        {cita.servicios.length > 1 && <Button size="lg" onClick={() => lessServicios(cita)} ><VscClose /></Button>}
-                        <div className="ms-auto">  <Button size="lg" onClick={() => moreServicios(cita)}><VscAdd /></Button></div>
+                        {cita.servicios.length > 1 && <Button size="lg" onClick={() => subService(cita)} ><VscClose /></Button>}
+                        <div className="ms-auto">  <Button size="lg" onClick={() => addService(cita)}><VscAdd /></Button></div>
                     </Stack>
-
-                </Form.Group>
+                </Form.Group>                
             </Form>
             <Button size="lg" style={{ width: "100%" }} variant="primary" onClick={() => onSave(cita)}> Guardar </Button>
         </Stack>

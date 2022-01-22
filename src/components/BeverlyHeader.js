@@ -1,23 +1,22 @@
 import { Stack } from "react-bootstrap"
 import BasicDatePicker from "./DatePicker"
-import Sidebar from "./Sidebar"
+import BeverlySidebar from "./BeverlySidebar"
 import { VscCalendar } from "react-icons/vsc"
 import { Button } from "react-bootstrap";
 
-const BeverlyHeader = ({ selectedDate, handleDateChange, handleShow }) => {
+const BeverlyHeader = ({ selectedDate, handleDateChange, handleShow, headerRef }) => {
     return (
-        <Stack direction="horizontal" style={{
-        }}>
-            <Sidebar />
+        <Stack direction="horizontal" ref={headerRef}> 
+
+            <BeverlySidebar />
+
             <div id="agendaId" style={{
                 margin: "auto"
-            }}>
-                Agenda: <BasicDatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} />
-            </div>
+            }}> Agenda: <BasicDatePicker selectedDate={selectedDate} handleDateChange={handleDateChange} /> </div>
+
             <div style={{
                 paddingRight: "15px"
-            }}>
-                <Button variant="primary" onClick={handleShow}>
+            }}> <Button size="lg" variant="primary" onClick={handleShow}>
                     <VscCalendar />
                 </Button>
             </div>
