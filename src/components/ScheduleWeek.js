@@ -12,26 +12,28 @@ const ScheduleWeek = ({ week, onDelete, onUpdate, onSelect, activeDay }) => {
         height: "100%"
       }}
     >
-      {Object.entries(week).map((day) =>      
+      {Object.entries(week).map((day) =>
         <Carousel.Item key={day[0]} >
           <div style={{
             width: "80%",
             margin: "auto",
             textAlign: "center"
           }}>
-            {day[1].length > 0 ? day[1].map((agenda, key) =>
-              <div key={key}> {agenda.manicurista}
-                <AgendaTable
-                  key={key}
-                  onDelete={onDelete}
-                  onUpdate={onUpdate}
-                  {...agenda}
-                />
-              </div>
-            ) : <div style={{
-              alignItems: "center",
-              height: "100%"
-            }}> Crea una cita </div>}
+            {day[1].length > 0 && day[1].filter(agenda => agenda.citas.length > 0).length > 0 ?
+              day[1].filter(agenda => agenda.citas.length > 0)
+                .map((agenda, key) =>
+                  <div key={key}> {agenda.manicurista}
+                    <AgendaTable
+                      key={key}
+                      onDelete={onDelete}
+                      onUpdate={onUpdate}
+                      {...agenda}
+                    />
+                  </div>
+                ) : <div style={{
+                  alignItems: "center",
+                  height: "100%"
+                }}> Crea una cita </div>}
           </div>
         </Carousel.Item>
       )}
