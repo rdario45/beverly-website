@@ -1,10 +1,12 @@
-
-import { Table, Button } from "react-bootstrap"
+import { Table,  Badge } from "react-bootstrap"
 import { VscTrash, VscEdit } from "react-icons/vsc"
+import { BsFillImageFill } from "react-icons/bs"
+import { ImWhatsapp } from "react-icons/im"
+import { IconContext } from "react-icons"
 
 const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
     return (
-        <Table striped bordered hover>
+        <Table bordered hover>
             <thead>
                 <tr>
                     <th>HORA</th>
@@ -15,19 +17,29 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
             </thead>
             <tbody>
                 {citas.sort((c1, c2) => c1.hora > c2.hora ? 1 : -1).map((cita, key) => {
-                    const servicios = cita.servicios.map(servicio => servicio.nombre).join(", ");
-                    const total = cita.servicios.map(s => parseInt(s.valor)).reduce((ant, sig) => (ant + sig), 0);
+                    const servicios = cita.servicios.map(servicio =>
+                        <span><Badge bg="danger">{` ${servicio.nombre} `}</Badge>{' '}</span>
+                    );
                     const time = new Date(parseInt(cita.hora));
                     const xTime = `${time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`
-                    const xTotal = '$' + total.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+                    const total = cita.servicios.map(s => parseInt(s.valor)).reduce((ant, sig) => (ant + sig), 0);
+                    const xTotal = <Badge bg="secondary"> {'$' + total.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} </Badge>
 
                     return (
                         <tr key={key}>
                             <td>{xTime}</td>
-                            <td>{cita.cliente}</td>
-                            <td>{servicios}: {xTotal}</td>
-                            <td><Button onClick={() => onDelete(cita, id)}> <VscTrash /></Button></td>
-                            <td><Button onClick={() => onUpdate(cita)}> <VscEdit /></Button></td>
+                            <td> {cita.cliente} {' '}
+                                <IconContext.Provider value={{ color: 'green' }}>
+                                    <ImWhatsapp />
+                                </IconContext.Provider>
+                                {' '}
+                                <IconContext.Provider value={{ color: '#d2005f' }}>
+                                    <BsFillImageFill />
+                                </IconContext.Provider>
+                            </td>
+                            <td>{servicios} {xTotal}</td>
+                            <td><VscTrash onClick={() => onDelete(cita, id)} /></td>
+                            <td><VscEdit onClick={() => onUpdate(cita)} /></td>
                         </tr>
                     )
                 })}

@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
 import { Chart } from 'react-chartjs-2';
 import 'chart.js/auto';
 
-function BalanceScreen({ fecha, balance, loadBalance }) {
-
-  useEffect(() => {
-    loadBalance(fecha);
-  }, [fecha]);
-
+function BalanceScreen({ balance }) {
   const data = {
     labels: balance ? Object.entries(balance).map(value => value[0]) : [],
     datasets: [
@@ -34,7 +28,6 @@ function BalanceScreen({ fecha, balance, loadBalance }) {
       },
     ],
   };
-
 
   return (
     <div style={{ width: '30%', margin: '50px auto' }}>

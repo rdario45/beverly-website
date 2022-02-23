@@ -9,7 +9,8 @@ const BeverlySidebar = () => {
   return (
     <>
       <div onClick={handleShow} style={{
-        paddingLeft: "15px"
+        paddingLeft: "15px",
+        fontSize: "48px",
       }}> Beverly </div>
 
       <Offcanvas show={show} onHide={handleClose}>
