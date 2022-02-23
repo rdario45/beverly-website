@@ -33,10 +33,8 @@ const BeverlyHeader = ({
             <div style={{
                 paddingRight: "15px"
             }}>
-                <Button onClick={handleShow}>
-                    <VscCalendar />
-                </Button>
-            </div>
+                    <VscCalendar onClick={handleShow}/>
+               </div>
 
             <Modal show={isModalVisible} onHide={handleClose}>
                 <Modal.Body>

@@ -50,9 +50,9 @@ export default function useBeverlyApp(initialState) {
       dispatch({
         type: "createForm",
         payload: Object.assign({
-          client: "",
+          cliente: "",
           agenda: "",
-          services: [{ name: "", price: "" }]
+          servicios: [{ nombre: "", valor: "" }]
         })
       })
     }
@@ -65,7 +65,7 @@ export default function useBeverlyApp(initialState) {
   }
 
   const onDelete = (cita, agendaId) => {
-    API.eliminarCita(cita.id).then((body) => {
+    API.deleteAppointment(cita.id).then((body) => {
       window.location.reload();
     });
   }
@@ -86,10 +86,10 @@ export default function useBeverlyApp(initialState) {
     });
   }
 
-  const setClient = (client, appointment) => {
+  const setClient = (cliente, appointment) => {
     dispatch({
       type: "createForm",
-      payload: Object.assign(appointment, { client })
+      payload: Object.assign(appointment, { cliente })
     })
   }
 
@@ -101,17 +101,17 @@ export default function useBeverlyApp(initialState) {
   }
 
   const handleChangeServices = (attrib, key, value, appointment) => {
-    appointment.services[key][attrib] = value;
+    appointment.servicios[key][attrib] = value;
     dispatch({
       type: "createForm",
-      payload: Object.assign(appointment, { services: appointment.services })
+      payload: Object.assign(appointment, { servicios: appointment.servicios })
     })
   }
 
   const addService = (appointment) => {
     dispatch({
       type: "createForm",
-      payload: Object.assign(appointment, { services: appointment.services.concat({})})
+      payload: Object.assign(appointment, { servicios: appointment.servicios.concat({})})
     })
   }
 
@@ -119,7 +119,7 @@ export default function useBeverlyApp(initialState) {
     appointment.servicios.pop()
     dispatch({
       type: "createForm",
-      payload: Object.assign(appointment, { services: appointment.services })
+      payload: Object.assign(appointment, { servicios: appointment.servicios })
     })
   }
 
@@ -128,14 +128,9 @@ export default function useBeverlyApp(initialState) {
       type: "activeDay",
       payload: number
     })
-
-
     const newDate = new Date(state.selectedDate).getDate() - new Date(state.selectedDate).getDay() + number + 1;
     const newFecha = new Date(state.selectedDate).setDate(newDate);
-
-
     console.log(newFecha)
-
     dispatch({
       type: "selectedDate",
       payload: new Date(newFecha)

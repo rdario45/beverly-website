@@ -6,7 +6,7 @@ import BasicTimePicker from "./TimePicker"
 
 const CreateForm = ({ 
     seledtedDate,
-    handleFecha,
+    updateFecha,
     appointment,
     onSaveAppointment,
     setAgenda,
@@ -32,7 +32,7 @@ const CreateForm = ({
                         <div style={{
                             paddingLeft: "5px"
                         }}>
-                            <BasicTimePicker handleDateChange={handleFecha} selectedHour={seledtedDate} />
+                            <BasicTimePicker handleDateChange={updateFecha} selectedHour={seledtedDate} />
                         </div>
                     </InputGroup>
                 </Form.Group>
