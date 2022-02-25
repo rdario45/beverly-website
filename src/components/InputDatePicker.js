@@ -1,13 +1,13 @@
 import DateFnsUtils from '@date-io/date-fns';
 import {
-  TimePicker,
+  DatePicker,
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-const BasicTimePicker = ({ handleDateChange, selectedHour }) => (
+const InputDatePicker = ({ handleDateChange, selectedDate }) => (
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <TimePicker value={selectedHour} onChange={handleDateChange} />
+    <DatePicker value={selectedDate} onChange={handleDateChange} />
   </MuiPickersUtilsProvider>
 )
 
-export default BasicTimePicker;
+export default InputDatePicker;

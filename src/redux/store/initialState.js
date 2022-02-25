@@ -8,7 +8,7 @@ const initialState = {
     createForm: {
       cliente: "",
       agenda: "",
-      servicios: [{ nombre: "" }]
+      servicios: [{ nombre: "", valoe: 0 }]
     },
     currentWeek: {
       Monday: [],

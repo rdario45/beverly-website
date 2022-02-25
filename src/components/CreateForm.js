@@ -1,8 +1,7 @@
 import { Form, Col, Row, Button, Stack, InputGroup } from "react-bootstrap";
 import { VscAdd, VscClose, VscCalendar } from "react-icons/vsc"
 import { BsTelephonePlus } from "react-icons/bs"
-
-import BasicTimePicker from "./TimePicker"
+import InputTimePicker from "./InputTimePicker";
 
 const CreateForm = ({ 
     seledtedDate,
@@ -32,7 +31,7 @@ const CreateForm = ({
                         <div style={{
                             paddingLeft: "5px"
                         }}>
-                            <BasicTimePicker handleDateChange={updateFecha} selectedHour={seledtedDate} />
+                            <InputTimePicker handleDateChange={updateFecha} selectedHour={seledtedDate} />
                         </div>
                     </InputGroup>
                 </Form.Group>
@@ -47,21 +46,10 @@ const CreateForm = ({
                     </Form.Select>
                 </Form.Group>
 
-
-                {/* <Form.Group controlId="formCliente">
-                    <Form.Label> Cliente </Form.Label>
-                    <Form.Control size="lg" value={appointment.client} onChange={e => setClient(e.target.value, appointment)} />
-                </Form.Group> */}
-
                 <Form.Group controlId="formCliente">
                     <Form.Label> Cliente </Form.Label>
-                    {/* <Form.Control size="lg" value={appointment.client} onChange={e => setClient(e.target.value, appointment)} /> */}
                     <InputGroup>
-                        <div style={{
-                            // paddingLeft: "5px"
-                        }}>
-                            <Form.Control size="lg" value={appointment.cliente} onChange={e => setClient(e.target.value, appointment)} />
-                        </div>
+                        <Form.Control size="lg" value={appointment.cliente} onChange={e => setClient(e.target.value, appointment)} />
                         <InputGroup.Text>
                             <BsTelephonePlus />
                         </InputGroup.Text>

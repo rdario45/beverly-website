@@ -1,8 +1,8 @@
-import ScheduleWeek from "../components/ScheduleWeek";
+import CarouselWeekly from "../components/CarouselWeekly";
 
 const AgendaScreen = ({ currentWeek, onDelete, onUpdate, onSelect, activeDay }) => {
     return (
-        <ScheduleWeek
+        <CarouselWeekly
             week={currentWeek}
             onDelete={onDelete}
             onUpdate={onUpdate}

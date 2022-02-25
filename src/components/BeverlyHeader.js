@@ -1,5 +1,5 @@
 import { Stack, Modal } from "react-bootstrap";
-import BasicDatePicker from "./DatePicker";
+import InputDatePicker from "./InputDatePicker";
 import BeverlySidebar from "./BeverlySidebar";
 import { VscCalendar } from "react-icons/vsc";
 import CreateForm from "./CreateForm";
@@ -15,9 +15,7 @@ const BeverlyHeader = ({
 }) => {
     return (
         <Stack direction="horizontal" ref={beverlyHeaderRef}>
-
             <BeverlySidebar />
-
             <div style={{
                 margin: "auto",
                 fontSize: "48px",
@@ -26,7 +24,7 @@ const BeverlyHeader = ({
                     paddingLeft: "10px",
                     display: "inline-flex"
                 }}>
-                    <BasicDatePicker selectedDate={selectedDate} handleDateChange={updateFecha} />
+                    <InputDatePicker selectedDate={selectedDate} handleDateChange={updateFecha} />
                 </div>
             </div>
 
