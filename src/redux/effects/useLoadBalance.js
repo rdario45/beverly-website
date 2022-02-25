@@ -3,14 +3,12 @@ import API from "../../api/ApiController";
 
 const useLoadBalance = (selectedDate, dispatch) => {
     useEffect(() => {
-        const calcWeekPeriod = (selectedDate) => {
-            const startDate = new Date(selectedDate.toDateString());
-            startDate.setDate(startDate.getDate() - selectedDate.getDay());
-            const finalDate = new Date(startDate.toDateString());
-            finalDate.setDate(startDate.getDate() + 6);
+        const [startDate, finalDate] = ((selectedDate) => {
+            const today = new Date(selectedDate.toDateString());
+            const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+            const finalDate = new Date(today.getFullYear(), today.getMonth()+1, 0);
             return [startDate, finalDate];
-        }
-        const [startDate, finalDate] = calcWeekPeriod(selectedDate);
+        })(selectedDate);
 
         API.findBalance(
             new Date(startDate.toDateString()).getTime().toString(),
