@@ -5,8 +5,7 @@ import BeverlyHeader from "./components/BeverlyHeader";
 import AgendasScreen from './screens/AgendasScreen';
 import BalanceScreen from './screens/BalanceScreen';
 import useBeverlyApp from "./redux/hooks/useBeverlyApp";
-
-const initialState = require('./redux/store/initialState.json');
+import initialState from "./redux/store/initialState";
 
 export default function BeverlyApp() {
   const {

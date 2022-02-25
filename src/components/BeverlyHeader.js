@@ -1,4 +1,4 @@
-import { Stack, Modal, Button } from "react-bootstrap";
+import { Stack, Modal } from "react-bootstrap";
 import BasicDatePicker from "./DatePicker";
 import BeverlySidebar from "./BeverlySidebar";
 import { VscCalendar } from "react-icons/vsc";

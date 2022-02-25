@@ -6,9 +6,7 @@ import { useState } from 'react';
 
 function useBeverlyAuth() {
     const [token, setToken] = useState(null);
-
     function login({ accessToken }) {
-        console.log("accessToken", accessToken);
         // setAccessToken(accessToken);
         // setToken(accessToken);
     }

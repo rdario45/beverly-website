@@ -1,21 +1,12 @@
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import GlobalReducer from '../store/BveverlyReducer';
 // import useWindowsResize from "../effects/useWindowsResize";
 import useLoadAgendas from "../effects/useLoadAgendas";
 import useLoadBalance from "../effects/useLoadBalance";
 import API from "../../api/ApiController";
 
-function withJsSuggar(state) {
-  return {
-    ...state,
-    headerRef: React.createRef(null),
-    selectedDate: new Date(),
-  }
-}
 export default function useBeverlyApp(initialState) {
-  // Global REDUCER and EFFECTS
-  const [state, dispatch] = useReducer(GlobalReducer, withJsSuggar(initialState));
-  // const dimensions = useWindowsResize(meta);
+  const [state, dispatch] = useReducer(GlobalReducer,  initialState);
   useLoadAgendas(state.selectedDate, dispatch);
   useLoadBalance(state.selectedDate, dispatch);
 
@@ -71,14 +62,12 @@ export default function useBeverlyApp(initialState) {
   }
 
   const onUpdate = (appointment) => {
-    console.log(appointment)
+    handleShow();
     dispatch({
       type: "createForm",
       payload: appointment
     });
-    handleShow();
-
-    const newFecha = new Date(); // TODO refect
+    const newFecha = new Date(state.selectedDate);
     newFecha.setTime(appointment.hora);
     dispatch({
       type: "selectedDate",
@@ -130,7 +119,6 @@ export default function useBeverlyApp(initialState) {
     })
     const newDate = new Date(state.selectedDate).getDate() - new Date(state.selectedDate).getDay() + number + 1;
     const newFecha = new Date(state.selectedDate).setDate(newDate);
-    console.log(newFecha)
     dispatch({
       type: "selectedDate",
       payload: new Date(newFecha)
@@ -149,6 +137,7 @@ export default function useBeverlyApp(initialState) {
       handleClose,
       onSaveAppointment,
       createFormCtrlPkg:{
+        seledtedDate: state.selectedDate,
         appointment: state.createForm,
         updateFecha,
         onSaveAppointment,

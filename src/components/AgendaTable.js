@@ -16,17 +16,16 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
                 </tr>
             </thead>
             <tbody>
-                {citas.sort((c1, c2) => c1.hora > c2.hora ? 1 : -1).map((cita, key) => {
-                    const servicios = cita.servicios.map(servicio =>
-                        <span><Badge bg="danger">{` ${servicio.nombre} `}</Badge>{' '}</span>
+                {citas.sort((c1, c2) => c1.hora > c2.hora ? 1 : -1).map((cita, i) => {
+                    const servicios = cita.servicios.map((servicio, i) =>
+                        <span key={i}><Badge bg="danger">{` ${servicio.nombre} `}</Badge>{' '}</span>
                     );
                     const time = new Date(parseInt(cita.hora));
                     const xTime = `${time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`
                     const total = cita.servicios.map(s => parseInt(s.valor)).reduce((ant, sig) => (ant + sig), 0);
                     const xTotal = <Badge bg="secondary"> {'$' + total.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} </Badge>
-
                     return (
-                        <tr key={key}>
+                        <tr key={i}>
                             <td>{xTime}</td>
                             <td> {cita.cliente} {' '}
                                 <IconContext.Provider value={{ color: 'green' }}>

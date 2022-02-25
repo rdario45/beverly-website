@@ -3,9 +3,6 @@ import AgendaTable from "./AgendaTable";
 import { Carousel } from "react-bootstrap";
 
 const ScheduleWeek = ({ week, onDelete, onUpdate, onSelect, activeDay }) => {
-  
-  console.log("week", week)
-
   return (
     <Carousel
       onSelect={onSelect}
