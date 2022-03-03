@@ -2,7 +2,7 @@ import React from 'react';
 import AgendaTable from "./AgendaTable";
 import { Carousel } from "react-bootstrap";
 
-const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay }) => {
+const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay, whatsappIconRefTarget }) => {
   return (
     <Carousel
       onSelect={onSelect}
@@ -31,6 +31,7 @@ const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay }) => {
                       key={key}
                       onDelete={onDelete}
                       onUpdate={onUpdate}
+                      whatsappIconRefTarget={whatsappIconRefTarget}
                       {...agenda}
                     />
                   </div>

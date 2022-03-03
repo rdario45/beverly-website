@@ -12,6 +12,11 @@ const BveverlyReducer = (state, action) => {
       return {...state, currentWeek: action.payload };
     case 'balance':
       return {...state, balance: action.payload };
+    case 'isPhoneAvailable':
+      return {...state, isPhoneAvailable: action.payload };
+    case 'isPercentageVisible':
+      return {...state, isPercentageVisible: action.payload };
+    
     default:
       throw new Error();
   }

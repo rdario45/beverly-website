@@ -1,10 +1,10 @@
 import { Table,  Badge } from "react-bootstrap"
 import { VscTrash, VscEdit } from "react-icons/vsc"
 import { BsFillImageFill } from "react-icons/bs"
-import { ImWhatsapp } from "react-icons/im"
 import { IconContext } from "react-icons"
+import WhatsAppIcon from "./WhatsAppIcon";
 
-const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
+const AgendaTable = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget }) => {
     return (
         <Table bordered hover>
             <thead>
@@ -27,14 +27,12 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate }) => {
                     return (
                         <tr key={i}>
                             <td>{xTime}</td>
-                            <td> {cita.cliente} {' '}
-                                <IconContext.Provider value={{ color: 'green' }}>
-                                    <ImWhatsapp />
-                                </IconContext.Provider>
-                                {' '}
-                                <IconContext.Provider value={{ color: '#d2005f' }}>
-                                    <BsFillImageFill />
-                                </IconContext.Provider>
+                            <td> {cita.cliente} {' '}    
+                            <WhatsAppIcon whatsappIconRefTarget={whatsappIconRefTarget}  phone={cita.telefono} />
+                            {' '}
+                            <IconContext.Provider value={{ color: '#d2005f' }}>
+                                <BsFillImageFill />
+                            </IconContext.Provider>
                             </td>
                             <td>{servicios} {xTotal}</td>
                             <td><VscTrash onClick={() => onDelete(cita, id)} /></td>

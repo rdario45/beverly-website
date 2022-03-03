@@ -43,7 +43,9 @@ export default function useBeverlyApp(initialState) {
         payload: Object.assign({
           cliente: "",
           agenda: "",
-          servicios: [{ nombre: "", valor: "" }]
+          servicios: [{ nombre: "", valor: "" }],
+          telefono: "",
+          porcentaje: 100
         })
       })
     }
@@ -89,6 +91,22 @@ export default function useBeverlyApp(initialState) {
     })
   }
 
+  const setTelefono = (telefono, appointment) => {
+    dispatch({
+      type: "createForm",
+      payload: Object.assign(appointment, { telefono })
+    })
+  }
+
+  
+  const setPorcentaje = (porcentaje, appointment) => {
+    dispatch({
+      type: "createForm",
+      payload: Object.assign(appointment, { porcentaje })
+    })
+  }
+
+
   const handleChangeServices = (attrib, key, value, appointment) => {
     appointment.servicios[key][attrib] = value;
     dispatch({
@@ -125,7 +143,20 @@ export default function useBeverlyApp(initialState) {
     });
   }
 
+  const setPhoneAvailable = (booleanValue) => {
+    dispatch({
+      type: "isPhoneAvailable",
+      payload: booleanValue
+    })
+  }
 
+  const setPercentageVisible = (booleanValue) => {
+    dispatch({
+      type: "isPercentageVisible",
+      payload: booleanValue
+    })
+  }
+  
   return {
     headerCtrl: {
       beverlyHeaderRef: state.headerRef,
@@ -139,13 +170,19 @@ export default function useBeverlyApp(initialState) {
       createFormCtrlPkg:{
         seledtedDate: state.selectedDate,
         appointment: state.createForm,
+        isPhoneAvailable: state.isPhoneAvailable,
+        isPercentageVisible: state.isPercentageVisible,
         updateFecha,
         onSaveAppointment,
         setAgenda,
         setClient,
         handleChangeServices,
         addService,
-        removeService
+        removeService,
+        setPhoneAvailable,
+        setTelefono,
+        setPercentageVisible,
+        setPorcentaje,
       }
     },
     agendasCtrl: {
@@ -154,6 +191,7 @@ export default function useBeverlyApp(initialState) {
       onDelete,
       onUpdate,
       onSelect,
+      whatsappIconRefTarget: state.whatsappIconRefTarget
     },
     balanceCtrl: {
       balance: state.balance

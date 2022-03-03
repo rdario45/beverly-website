@@ -11,7 +11,7 @@ const BeverlySidebar = () => {
       <div onClick={handleShow} style={{
         paddingLeft: "15px",
         fontSize: "48px",
-      }}> Beverly </div>
+      }}> BeverlySpa </div>
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>

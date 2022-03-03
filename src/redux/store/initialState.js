@@ -8,7 +8,9 @@ const initialState = {
     createForm: {
       cliente: "",
       agenda: "",
-      servicios: [{ nombre: "", valoe: 0 }]
+      servicios: [{ nombre: "", valoe: 0 }],
+      telefono: "+ 57 ",
+      porcentaje: 100
     },
     currentWeek: {
       Monday: [],
@@ -18,7 +20,9 @@ const initialState = {
       Friday: [],
       Saturday: []
     },
-    balance: {}
+    balance: {},
+    isPhoneAvailable: false,
+    isPercentageVisible: false
   }
 
   export default initialState;
