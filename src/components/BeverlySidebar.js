@@ -15,12 +15,13 @@ const BeverlySidebar = () => {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title> Beverly </Offcanvas.Title>
+          <Offcanvas.Title> BeverlySpa </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <ul>
             <li> <a href="/"> [Agendas] </a> </li>
             <li> <a href="/balance"> [Balance] </a> </li>
+            <li> <a href="/campañas"> [Campañas] </a> </li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>
