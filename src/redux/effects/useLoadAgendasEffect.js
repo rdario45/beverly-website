@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import API from "../../api/ApiController";
+import { findAgenda } from "../../api/ApiController";
+import { withHttpWrapper } from "../../api/HttpAuthWrapper";
 
-const useLoadAgendas = (selectedDate, dispatch) => {   
-    useEffect(() => { 
+const useLoadAgendasEffect = ({ selectedDate, accessToken, dispatch }) => {
+    useEffect(() => {
         const calcWeekPeriod = (selectedDate) => {
             const startDate = new Date(selectedDate.toDateString());
             startDate.setDate(startDate.getDate() - selectedDate.getDay());
@@ -10,14 +11,13 @@ const useLoadAgendas = (selectedDate, dispatch) => {
             finalDate.setDate(startDate.getDate() + 6);
             return [startDate, finalDate];
         }
-        const [startDate, finalDate] = calcWeekPeriod(selectedDate);    
+        const [startDate, finalDate] = calcWeekPeriod(selectedDate);
         const buildWeek = (agendas) => {
             const filter = (agenda, offset) => {
                 const sDate = new Date(selectedDate.toDateString());
                 sDate.setDate(sDate.getDate() - sDate.getDay() + offset);
                 return agenda.fecha === sDate.getTime().toString();
             }
-
             return {
                 Monday: agendas.filter(agenda => filter(agenda, 1)),
                 Tuesday: agendas.filter(agenda => filter(agenda, 2)),
@@ -28,22 +28,21 @@ const useLoadAgendas = (selectedDate, dispatch) => {
             }
         }
 
-        API.findAgenda(
-            new Date(startDate.toDateString()).getTime().toString(),
-            new Date(finalDate.toDateString()).getTime().toString()
-        ).then((body) => {
-            dispatch({
-                type: "currentWeek",
-                payload: buildWeek(body.data)
-            });
-
-            dispatch({
-                type: "activeDay",
-                payload: new Date(selectedDate).getDay() > 0 ? new Date(selectedDate).getDay() - 1 : 0
-            })
-        });
+        withHttpWrapper(
+            findAgenda([
+                new Date(startDate.toDateString()).getTime().toString(),
+                new Date(finalDate.toDateString()).getTime().toString(),
+                accessToken
+            ]),
+            (body) => {
+                dispatch({
+                    type: "currentWeek",
+                    payload: buildWeek(body.data)
+                });
+            },
+            (response) => {}, dispatch)
 
     }, [selectedDate]);
 }
 
-export default useLoadAgendas;
+export default useLoadAgendasEffect;

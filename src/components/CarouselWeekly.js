@@ -1,5 +1,5 @@
 import React from 'react';
-import AgendaTable from "./AgendaTable";
+import BeverlyAgenda from "./BeverlyAgenda";
 import { Carousel } from "react-bootstrap";
 
 const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay, whatsappIconRefTarget }) => {
@@ -27,7 +27,7 @@ const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay, whatsap
               day[1].filter(agenda => agenda.citas.length > 0)
                 .map((agenda, key) =>
                   <div key={key}> {agenda.manicurista}
-                    <AgendaTable
+                    <BeverlyAgenda
                       key={key}
                       onDelete={onDelete}
                       onUpdate={onUpdate}

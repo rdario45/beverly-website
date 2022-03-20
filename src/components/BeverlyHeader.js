@@ -1,8 +1,8 @@
 import { Stack, Modal } from "react-bootstrap";
-import InputDatePicker from "./InputDatePicker";
+import InputDatePicker from "./DateInputPicker";
 import BeverlySidebar from "./BeverlySidebar";
 import { VscCalendar } from "react-icons/vsc";
-import CreateForm from "./CreateForm";
+import CreateForm from "./CreateCitaForm";
 
 const BeverlyHeader = ({
     beverlyHeaderRef,
@@ -20,6 +20,7 @@ const BeverlyHeader = ({
                 margin: "auto",
                 fontSize: "48px",
             }}> Agendas
+
                 <div style={{
                     paddingLeft: "10px",
                     display: "inline-flex"
@@ -31,8 +32,8 @@ const BeverlyHeader = ({
             <div style={{
                 paddingRight: "15px"
             }}>
-                    <VscCalendar onClick={handleShow}/>
-               </div>
+                <VscCalendar onClick={handleShow} />
+            </div>
 
             <Modal show={isModalVisible} onHide={handleClose}>
                 <Modal.Body>

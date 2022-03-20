@@ -1,5 +1,11 @@
-const AuthController = {
-    signin: (phone, code) => Promise.resolve({ accessToken: "8580f3a6-5422-41d2-9bdd-f86850bf5244", expiresAt:"1645419600000", phone: "+573007988200", ipv4: "186.159.16.202"}),    
+const send = (args) => {
+    const [phone] = args;
+    return fetch(`${process.env.REACT_APP_API}/auth/send/${phone}`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
 }
 
-export default AuthController;
+const signin = (args) => {
+    const [phone, code] = args;
+    return fetch(`${process.env.REACT_APP_API}/auth/signin/${phone}/${code}`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+}
+
+export { signin, send };

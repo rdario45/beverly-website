@@ -1,7 +1,7 @@
 import { Form, Col, Row, Button, Stack, InputGroup } from "react-bootstrap";
 import { VscAdd, VscClose, VscCalendar } from "react-icons/vsc"
 import { BsTelephonePlus, BsPercent } from "react-icons/bs"
-import InputTimePicker from "./InputTimePicker";
+import InputTimePicker from "./TimeInputPicker";
 
 const CreateForm = ({
     seledtedDate,
@@ -47,16 +47,18 @@ const CreateForm = ({
                     <InputGroup>
                         {!isPercentageVisible &&
                             <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
-                                <option value="BEVERLYSPA">BeverlySpa</option>
                                 <option value="NATALIA">Natalia</option>
+                                <option value="BEVERLYSPA">BeverlySpa</option>
+                                <option value="BEVERLYGASTO">BeverlyGasto</option>
                             </Form.Select>
                         }
 
                         {isPercentageVisible &&
                             <Col md={8} sm={8}>
                                 <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
-                                    <option value="BEVERLYSPA">BeverlySpa</option>
                                     <option value="NATALIA">Natalia</option>
+                                    <option value="BEVERLYSPA">BeverlySpa</option>
+                                    <option value="BEVERLYGASTO">BeverlyGasto</option>
                                 </Form.Select>
                             </Col>}
 
@@ -65,8 +67,8 @@ const CreateForm = ({
                                 size="lg"
                                 value={appointment.porcentaje}
                                 onChange={e => setPorcentaje(e.target.value, appointment)}>
-                                <option value="100">100</option>
                                 <option value="50">50</option>
+                                <option value="100">100</option>
                             </Form.Select>
                         }
 
@@ -79,17 +81,13 @@ const CreateForm = ({
                 <Form.Group controlId="formCliente">
                     <Form.Label> Cliente </Form.Label>
                     <InputGroup>
-
                         {!isPhoneAvailable && <Form.Control size="lg" value={appointment.cliente} onChange={e => setClient(e.target.value, appointment)} />}
-
                         {isPhoneAvailable && <Col md={7} sm={7}>
                             <Form.Control size="lg" value={appointment.cliente} onChange={e => setClient(e.target.value, appointment)} />
                         </Col>}
-
                         <InputGroup.Text onClick={e => setPhoneAvailable(!isPhoneAvailable)}>
                             <BsTelephonePlus />
                         </InputGroup.Text>
-
                         {isPhoneAvailable && <Form.Control size="md" value={appointment.telefono} onChange={e => setTelefono(e.target.value, appointment)} />}
                     </InputGroup>
                 </Form.Group>
@@ -110,7 +108,7 @@ const CreateForm = ({
                     )}
                     <Stack direction="horizontal">
                         {appointment.servicios.length > 1 && <Button size="lg" onClick={() => removeService(appointment)} ><VscClose /></Button>}
-                        <div className="ms-auto">  <Button size="lg" onClick={() => addService(appointment)}><VscAdd /></Button></div>
+                        <div className="ms-auto"><Button size="lg" onClick={() => addService(appointment)}><VscAdd /></Button> </div>
                     </Stack>
                 </Form.Group>
             </Form>

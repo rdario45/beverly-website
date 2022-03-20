@@ -1,16 +1,32 @@
 import { useReducer } from 'react';
-import GlobalReducer from '../store/BveverlyReducer';
-// import useWindowsResize from "../effects/useWindowsResize";
-import useLoadAgendas from "../effects/useLoadAgendas";
-import useLoadBalance from "../effects/useLoadBalance";
-import API from "../../api/ApiController";
+import GlobalReducer from '../store/BeverlyReducer';
+import useWindowsSizeEffect from "../effects/useWindowsSizeEffect";
+import useLoadAgendasEffect from "../effects/useLoadAgendasEffect";
+import useLoadChartPieffect from "../effects/useLoadChartPieEffect";
+import useSetActiveWeekDayEffect from "../effects/useSetActiveWeekDayEffect";
+import useRedirectLoginEffect from "../effects/useRedirectLoginEffect";
+import { withHttpWrapper } from "../../api/HttpAuthWrapper";
+import { createAppointment, updateAppointment, deleteAppointment } from "../../api/ApiController";
 
 export default function useBeverlyApp(initialState) {
-  const [state, dispatch] = useReducer(GlobalReducer,  initialState);
-  useLoadAgendas(state.selectedDate, dispatch);
-  useLoadBalance(state.selectedDate, dispatch);
+  const [state, dispatch] = useReducer(GlobalReducer, initialState);
+  
+  // useWindowsSizeEffect(dispatch);
+  useRedirectLoginEffect({ 
+    logout: state.logout, 
+    dispatch
+  });
+  useSetActiveWeekDayEffect({
+    selectedDate: state.selectedDate, 
+    dispatch
+  });
+  useLoadAgendasEffect({
+    selectedDate: state.selectedDate,
+    accessToken: state.accessToken,
+    dispatch,
+  });
+  // useLoadChartPieffect(state.selectedDate, dispatch, state.pie);
 
-  // Header Controller
   const updateFecha = (fecha) => {
     dispatch({
       type: "selectedDate",
@@ -42,25 +58,39 @@ export default function useBeverlyApp(initialState) {
         type: "createForm",
         payload: Object.assign({
           cliente: "",
-          agenda: "",
+          agenda: "NATALIA",
           servicios: [{ nombre: "", valor: "" }],
-          telefono: "",
-          porcentaje: 100
+          telefono: "+57 ",
+          porcentaje: 50
         })
       })
     }
 
     if (appointment.id) {
-      API.updateAppointment(newAppointment, appointment.id).then(body => cleanForm() );
+      withHttpWrapper(
+        updateAppointment([newAppointment, appointment.id, state.accessToken]),
+        (response) => {
+          cleanForm();
+        },
+        (response) => {},
+        dispatch);
     } else {
-      API.createAppointment(newAppointment).then(body => cleanForm() );
+      withHttpWrapper(
+        createAppointment([newAppointment, state.accessToken]),
+        (response) => {
+          cleanForm();
+        },
+        (response) => {}, 
+        dispatch);
     }
   }
 
   const onDelete = (cita, agendaId) => {
-    API.deleteAppointment(cita.id).then((body) => {
-      window.location.reload();
-    });
+    withHttpWrapper(
+      deleteAppointment([cita.id, state.accessToken]),
+      (response) => { window.location.reload(); },
+      (response) => {}, 
+      dispatch);
   }
 
   const onUpdate = (appointment) => {
@@ -98,14 +128,12 @@ export default function useBeverlyApp(initialState) {
     })
   }
 
-  
   const setPorcentaje = (porcentaje, appointment) => {
     dispatch({
       type: "createForm",
       payload: Object.assign(appointment, { porcentaje })
     })
   }
-
 
   const handleChangeServices = (attrib, key, value, appointment) => {
     appointment.servicios[key][attrib] = value;
@@ -118,7 +146,7 @@ export default function useBeverlyApp(initialState) {
   const addService = (appointment) => {
     dispatch({
       type: "createForm",
-      payload: Object.assign(appointment, { servicios: appointment.servicios.concat({})})
+      payload: Object.assign(appointment, { servicios: appointment.servicios.concat({}) })
     })
   }
 
@@ -156,20 +184,20 @@ export default function useBeverlyApp(initialState) {
       payload: booleanValue
     })
   }
-  
+
   return {
     headerCtrl: {
-      beverlyHeaderRef: state.headerRef,
       selectedDate: state.selectedDate,
       newAppointment: state.createForm,
       isModalVisible: state.showModal,
+      beverlyHeaderRef: state.headerRef,
       updateFecha,
       handleShow,
       handleClose,
       onSaveAppointment,
-      createFormCtrlPkg:{
-        seledtedDate: state.selectedDate,
+      createFormCtrlPkg: {
         appointment: state.createForm,
+        seledtedDate: state.selectedDate,
         isPhoneAvailable: state.isPhoneAvailable,
         isPercentageVisible: state.isPercentageVisible,
         updateFecha,
@@ -186,15 +214,18 @@ export default function useBeverlyApp(initialState) {
       }
     },
     agendasCtrl: {
+      whatsappIconRefTarget: state.whatsappIconRefTarget,
       currentWeek: state.currentWeek,
       activeDay: state.activeDay,
       onDelete,
       onUpdate,
       onSelect,
-      whatsappIconRefTarget: state.whatsappIconRefTarget
     },
     balanceCtrl: {
-      balance: state.balance
-    }
+      orientation: state.orientation,
+      pie: state.pie,
+      bar: state.bar,
+    },
+    campañasCtrl: {}
   }
 }

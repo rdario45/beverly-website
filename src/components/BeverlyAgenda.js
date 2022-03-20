@@ -4,7 +4,7 @@ import { BsFillImageFill } from "react-icons/bs"
 import { IconContext } from "react-icons"
 import WhatsAppIcon from "./WhatsAppIcon";
 
-const AgendaTable = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget }) => {
+const BeverlyAgenda = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget }) => {
     return (
         <Table bordered hover>
             <thead>
@@ -28,7 +28,7 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget }) =
                         <tr key={i}>
                             <td>{xTime}</td>
                             <td> {cita.cliente} {' '}    
-                            <WhatsAppIcon whatsappIconRefTarget={whatsappIconRefTarget}  phone={cita.telefono} />
+                            <WhatsAppIcon whatsappIconRefTarget={whatsappIconRefTarget} phone={cita.telefono} />
                             {' '}
                             <IconContext.Provider value={{ color: '#d2005f' }}>
                                 <BsFillImageFill />
@@ -45,4 +45,4 @@ const AgendaTable = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget }) =
     )
 }
 
-export default AgendaTable;
+export default BeverlyAgenda;
