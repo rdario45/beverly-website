@@ -12,10 +12,7 @@ export default function useBeverlyApp(initialState) {
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
   
   // useWindowsSizeEffect(dispatch);
-  useRedirectLoginEffect({ 
-    logout: state.logout, 
-    dispatch
-  });
+  
   useSetActiveWeekDayEffect({
     selectedDate: state.selectedDate, 
     dispatch
@@ -25,7 +22,16 @@ export default function useBeverlyApp(initialState) {
     accessToken: state.accessToken,
     dispatch,
   });
-  // useLoadChartPieffect(state.selectedDate, dispatch, state.pie);
+  useLoadChartPieffect({
+    selectedDate: state.selectedDate,
+    accessToken: state.accessToken,
+    pie: state.pie,
+    dispatch
+  });
+  useRedirectLoginEffect({ 
+    logout: state.logout, 
+    dispatch
+  });
 
   const updateFecha = (fecha) => {
     dispatch({

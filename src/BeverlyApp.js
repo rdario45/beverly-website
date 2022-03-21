@@ -13,10 +13,7 @@ import useBeverlyAuth from './redux/hooks/useBeverlyAuth';
 
 export default function BeverlyApp() {
   const [accessToken, authCtrl] = useBeverlyAuth(authInitState);
-  const {headerCtrl,
-    agendasCtrl,
-    balanceCtrl,
-    campañasCtrl} = useBeverlyApp(Object.assign(initialState, { accessToken }));
+  const {headerCtrl, agendasCtrl, balanceCtrl, campañasCtrl} = useBeverlyApp(Object.assign(initialState, {accessToken}));
 
   if (!accessToken) {
     return <BeverlyAuthScreen {...authCtrl} />
@@ -26,7 +23,7 @@ export default function BeverlyApp() {
     <Stack direction="vertical">
       <BeverlyHeader {...headerCtrl} />
       <div style={{
-        height: "600px"
+        height: "800px"
       }}>
         <BrowserRouter>
           <Routes>

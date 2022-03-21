@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { findAgenda } from "../../api/ApiController";
 import { withHttpWrapper } from "../../api/HttpAuthWrapper";
 
 const useLoadAgendasEffect = ({ selectedDate, accessToken, dispatch }) => {
+
+    const isAccessTokenAvaileble = !!accessToken;
+
     useEffect(() => {
         const calcWeekPeriod = (selectedDate) => {
             const startDate = new Date(selectedDate.toDateString());
@@ -28,19 +31,21 @@ const useLoadAgendasEffect = ({ selectedDate, accessToken, dispatch }) => {
             }
         }
 
-        withHttpWrapper(
-            findAgenda([
-                new Date(startDate.toDateString()).getTime().toString(),
-                new Date(finalDate.toDateString()).getTime().toString(),
-                accessToken
-            ]),
-            (body) => {
-                dispatch({
-                    type: "currentWeek",
-                    payload: buildWeek(body.data)
-                });
-            },
-            (response) => {}, dispatch)
+        if(isAccessTokenAvaileble) {
+            withHttpWrapper(
+                findAgenda([
+                    new Date(startDate.toDateString()).getTime().toString(),
+                    new Date(finalDate.toDateString()).getTime().toString(),
+                    accessToken
+                ]),
+                (body) => {
+                    dispatch({
+                        type: "currentWeek",
+                        payload: buildWeek(body.data)
+                    });
+                },
+                (response) => {}, dispatch)
+        }   
 
     }, [selectedDate]);
 }

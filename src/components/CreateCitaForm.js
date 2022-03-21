@@ -48,8 +48,7 @@ const CreateForm = ({
                         {!isPercentageVisible &&
                             <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
                                 <option value="NATALIA">Natalia</option>
-                                <option value="BEVERLYSPA">BeverlySpa</option>
-                                <option value="BEVERLYGASTO">BeverlyGasto</option>
+                                <option value="GASTO">Gasto</option>
                             </Form.Select>
                         }
 
@@ -57,8 +56,7 @@ const CreateForm = ({
                             <Col md={8} sm={8}>
                                 <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
                                     <option value="NATALIA">Natalia</option>
-                                    <option value="BEVERLYSPA">BeverlySpa</option>
-                                    <option value="BEVERLYGASTO">BeverlyGasto</option>
+                                    <option value="GASTO">Gasto</option>
                                 </Form.Select>
                             </Col>}
 

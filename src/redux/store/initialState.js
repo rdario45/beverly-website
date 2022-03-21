@@ -17,7 +17,7 @@ const charts = {
           'rgba(255, 206, 86, 1)',
         ],
         borderWidth: 1,
-      },
+      }
     ],
   },
   bar: {
