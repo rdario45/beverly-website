@@ -29,7 +29,7 @@ export default function BeverlyApp() {
           <Routes>
             <Route path="/" element={<AgendasScreen {...agendasCtrl} />}></Route>
             <Route path="/balance" element={<BalanceScreen {...balanceCtrl} />}></Route>
-            <Route path="/campañas" element={<CampañasScreen {...campañasCtrl} />}></Route>
+            {/* <Route path="/campañas" element={<CampañasScreen {...campañasCtrl} />}></Route> */}
           </Routes>
         </BrowserRouter>
       </div>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { findBalance } from "../../api/ApiController";
+import { findBalancePie } from "../../api/ApiController";
 import { withHttpWrapper } from "../../api/HttpAuthWrapper";
 
 const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
@@ -10,7 +10,7 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
         const finalDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         if (isAccessTokenAvaileble) {
             withHttpWrapper(
-                findBalance(
+                findBalancePie(
                     [new Date(startDate.toDateString()).getTime().toString(),
                     new Date(finalDate.toDateString()).getTime().toString(),
                         accessToken]

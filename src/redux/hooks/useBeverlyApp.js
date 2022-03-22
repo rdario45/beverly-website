@@ -3,6 +3,7 @@ import GlobalReducer from '../store/BeverlyReducer';
 import useWindowsSizeEffect from "../effects/useWindowsSizeEffect";
 import useLoadAgendasEffect from "../effects/useLoadAgendasEffect";
 import useLoadChartPieffect from "../effects/useLoadChartPieEffect";
+import useLoadChartBarEffect from "../effects/useLoadChartBarEffect";
 import useSetActiveWeekDayEffect from "../effects/useSetActiveWeekDayEffect";
 import useRedirectLoginEffect from "../effects/useRedirectLoginEffect";
 import { withHttpWrapper } from "../../api/HttpAuthWrapper";
@@ -10,11 +11,11 @@ import { createAppointment, updateAppointment, deleteAppointment } from "../../a
 
 export default function useBeverlyApp(initialState) {
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
-  
+
   // useWindowsSizeEffect(dispatch);
-  
+
   useSetActiveWeekDayEffect({
-    selectedDate: state.selectedDate, 
+    selectedDate: state.selectedDate,
     dispatch
   });
   useLoadAgendasEffect({
@@ -28,8 +29,14 @@ export default function useBeverlyApp(initialState) {
     pie: state.pie,
     dispatch
   });
-  useRedirectLoginEffect({ 
-    logout: state.logout, 
+  useLoadChartBarEffect({
+    selectedDate: state.selectedDate,
+    bar: state.bar,
+    accessToken: state.accessToken,
+    dispatch
+  });
+  useRedirectLoginEffect({
+    logout: state.logout,
     dispatch
   });
 
@@ -78,7 +85,7 @@ export default function useBeverlyApp(initialState) {
         (response) => {
           cleanForm();
         },
-        (response) => {},
+        (response) => { },
         dispatch);
     } else {
       withHttpWrapper(
@@ -86,7 +93,7 @@ export default function useBeverlyApp(initialState) {
         (response) => {
           cleanForm();
         },
-        (response) => {}, 
+        (response) => { },
         dispatch);
     }
   }
@@ -95,7 +102,7 @@ export default function useBeverlyApp(initialState) {
     withHttpWrapper(
       deleteAppointment([cita.id, state.accessToken]),
       (response) => { window.location.reload(); },
-      (response) => {}, 
+      (response) => { },
       dispatch);
   }
 
