@@ -4,7 +4,6 @@ import { Stack } from "react-bootstrap";
 import BeverlyHeader from "./components/BeverlyHeader";
 import AgendasScreen from './screens/AgendasScreen';
 import BalanceScreen from './screens/BalanceScreen';
-import CampañasScreen from './screens/CampañasScreen';
 import BeverlyAuthScreen from './screens/BeverlyAuthScreen';
 import useBeverlyApp from "./redux/hooks/useBeverlyApp";
 import authInitState from "./redux/store/authInitState";
@@ -29,7 +28,6 @@ export default function BeverlyApp() {
           <Routes>
             <Route path="/" element={<AgendasScreen {...agendasCtrl} />}></Route>
             <Route path="/balance" element={<BalanceScreen {...balanceCtrl} />}></Route>
-            {/* <Route path="/campañas" element={<CampañasScreen {...campañasCtrl} />}></Route> */}
           </Routes>
         </BrowserRouter>
       </div>
