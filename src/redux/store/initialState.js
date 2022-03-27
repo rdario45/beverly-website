@@ -59,8 +59,7 @@ const charts = {
 }
 
 const initialState = {
-  ...charts, // be careful here.
-  headerRef: React.createRef(null),
+  ...charts, // use charts here!.
   selectedDate: new Date(),
   showModal: false,
   activeDay: 0,
@@ -84,6 +83,8 @@ const initialState = {
   isPercentageVisible: true,
   error: "",
   logout: false,
+  headerRef: React.createRef(null),
+  headerHeight: 0,
 }
 
 export default initialState;

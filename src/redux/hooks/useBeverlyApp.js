@@ -6,14 +6,15 @@ import useLoadChartPieffect from "../effects/useLoadChartPieEffect";
 import useLoadChartBarEffect from "../effects/useLoadChartBarEffect";
 import useSetActiveWeekDayEffect from "../effects/useSetActiveWeekDayEffect";
 import useRedirectLoginEffect from "../effects/useRedirectLoginEffect";
+import useUpdateHeaderRefEffect from "../effects/useUpdateHeaderRefEffect";
 import { withHttpWrapper } from "../../api/HttpAuthWrapper";
 import { createAppointment, updateAppointment, deleteAppointment } from "../../api/ApiController";
 
 export default function useBeverlyApp(initialState) {
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
-
-  // useWindowsSizeEffect(dispatch);
-
+  useWindowsSizeEffect({
+    dispatch
+  });
   useSetActiveWeekDayEffect({
     selectedDate: state.selectedDate,
     dispatch
@@ -37,6 +38,10 @@ export default function useBeverlyApp(initialState) {
   });
   useRedirectLoginEffect({
     logout: state.logout,
+    dispatch
+  });
+  useUpdateHeaderRefEffect({
+    headerRef: state.headerRef,
     dispatch
   });
 
@@ -203,11 +208,12 @@ export default function useBeverlyApp(initialState) {
       selectedDate: state.selectedDate,
       newAppointment: state.createForm,
       isModalVisible: state.showModal,
-      beverlyHeaderRef: state.headerRef,
+      headerHeight: state.headerHeight,
       updateFecha,
       handleShow,
       handleClose,
       onSaveAppointment,
+      beverlyHeaderRef: state.headerRef,
       createFormCtrlPkg: {
         appointment: state.createForm,
         seledtedDate: state.selectedDate,
@@ -227,7 +233,6 @@ export default function useBeverlyApp(initialState) {
       }
     },
     agendasCtrl: {
-      whatsappIconRefTarget: state.whatsappIconRefTarget,
       currentWeek: state.currentWeek,
       activeDay: state.activeDay,
       onDelete,
@@ -238,7 +243,6 @@ export default function useBeverlyApp(initialState) {
       orientation: state.orientation,
       pie: state.pie,
       bar: state.bar,
-    },
-    campañasCtrl: {}
+    }
   }
 }

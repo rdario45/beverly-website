@@ -2,7 +2,7 @@ import React from 'react';
 import BeverlyAgenda from "./BeverlyAgenda";
 import { Carousel } from "react-bootstrap";
 
-const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay, whatsappIconRefTarget }) => {
+const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay }) => {
   return (
     <Carousel
       onSelect={onSelect}
@@ -16,9 +16,9 @@ const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay, whatsap
           <div className="board"
             style={{
               width: "80%",
+              height: "100%",
               margin: "auto",
               textAlign: "center",
-              height: "520px",
               paddingRight: "8px",
               paddingLeft: "8px",
               overflowY: "auto"
@@ -31,7 +31,6 @@ const CarouselWeekly = ({ week, onDelete, onUpdate, onSelect, activeDay, whatsap
                       key={key}
                       onDelete={onDelete}
                       onUpdate={onUpdate}
-                      whatsappIconRefTarget={whatsappIconRefTarget}
                       {...agenda}
                     />
                   </div>

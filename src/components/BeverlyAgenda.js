@@ -1,10 +1,8 @@
 import { Table,  Badge } from "react-bootstrap"
 import { VscTrash, VscEdit } from "react-icons/vsc"
-import { BsFillImageFill } from "react-icons/bs"
-import { IconContext } from "react-icons"
 import WhatsAppIcon from "./WhatsAppIcon";
 
-const BeverlyAgenda = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget }) => {
+const BeverlyAgenda = ({ id, citas, onDelete, onUpdate }) => {
     return (
         <Table bordered hover>
             <thead>
@@ -16,10 +14,9 @@ const BeverlyAgenda = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget })
                 </tr>
             </thead>
             <tbody>
-                {citas.sort((c1, c2) => c1.hora > c2.hora ? 1 : -1).map((cita, i) => {
-                    const servicios = cita.servicios.map((servicio, i) =>
-                        <span key={i}><Badge bg="danger">{` ${servicio.nombre} `}</Badge>{' '}</span>
-                    );
+                {citas.sort((c1, c2) => c1.hora > c2.hora)
+                .map((cita, i) => {
+                    const servicios = cita.servicios.map((servicio, i) => <span key={i}><Badge bg="danger">{` ${servicio.nombre} `}</Badge>{' '}</span>);
                     const time = new Date(parseInt(cita.hora));
                     const xTime = `${time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}`
                     const total = cita.servicios.map(s => parseInt(s.valor)).reduce((ant, sig) => (ant + sig), 0);
@@ -27,13 +24,7 @@ const BeverlyAgenda = ({ id, citas, onDelete, onUpdate, whatsappIconRefTarget })
                     return (
                         <tr key={i}>
                             <td>{xTime}</td>
-                            <td> {cita.cliente} {' '}    
-                            <WhatsAppIcon whatsappIconRefTarget={whatsappIconRefTarget} phone={cita.telefono} />
-                            {' '}
-                            <IconContext.Provider value={{ color: '#d2005f' }}>
-                                <BsFillImageFill />
-                            </IconContext.Provider>
-                            </td>
+                            <td>{cita.cliente} <WhatsAppIcon phone={cita.telefono}/></td>
                             <td>{servicios} {xTotal}</td>
                             <td><VscTrash onClick={() => onDelete(cita, id)} /></td>
                             <td><VscEdit onClick={() => onUpdate(cita)} /></td>

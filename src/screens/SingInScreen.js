@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, InputGroup, FormControl, Button } from "react-bootstrap";
 
 function BeverlySingInScreen({ phone, code, setCode, login }) {
@@ -11,7 +11,7 @@ function BeverlySingInScreen({ phone, code, setCode, login }) {
     }}>
       <span style={{
         fontSize: "50px"
-      }}>BeverlySpa</span>
+      }}> BeverlySpa </span>
       <p style={{
         fontFamily: "Ramaraja, serif",
         fontSize: "23px",

@@ -1,6 +1,6 @@
 import CarouselWeekly from "../components/CarouselWeekly";
 
-const AgendaScreen = ({ currentWeek, onDelete, onUpdate, onSelect, activeDay, whatsappIconRefTarget }) => {
+const AgendaScreen = ({ currentWeek, onDelete, onUpdate, onSelect, activeDay }) => {
     return (
         <CarouselWeekly
             week={currentWeek}
@@ -8,7 +8,6 @@ const AgendaScreen = ({ currentWeek, onDelete, onUpdate, onSelect, activeDay, wh
             onUpdate={onUpdate}
             onSelect={onSelect}
             activeDay={activeDay}
-            whatsappIconRefTarget={whatsappIconRefTarget}
         />
     )
 };

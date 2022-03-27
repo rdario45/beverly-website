@@ -11,19 +11,19 @@ const BeverlyHeader = ({
     selectedDate,
     handleShow,
     handleClose,
-    createFormCtrlPkg
+    createFormCtrlPkg,
 }) => {
-    return (
+    return (        
         <Stack direction="horizontal" ref={beverlyHeaderRef}>
             <BeverlySidebar />
             <div style={{
                 margin: "auto",
                 fontSize: "48px",
             }}> Agendas
-
                 <div style={{
                     paddingLeft: "10px",
-                    display: "inline-flex"
+                    display: "inline-flex",
+                    innerWidth: "200px"
                 }}>
                     <InputDatePicker selectedDate={selectedDate} handleDateChange={updateFecha} />
                 </div>

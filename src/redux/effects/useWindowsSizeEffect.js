@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useWindowsSizeEffect = (dispatch) => {
+const useWindowsSizeEffect = ({ dispatch }) => {
     useEffect(() => {
         const handleResize = () => {
             dispatch({
