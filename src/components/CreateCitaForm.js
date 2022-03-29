@@ -16,7 +16,6 @@ const CreateForm = ({
     isPhoneAvailable,
     setPhoneAvailable,
     setTelefono,
-    isPercentageVisible,
     setPercentageVisible,
     setPorcentaje
 }) => {
@@ -36,42 +35,18 @@ const CreateForm = ({
                         </InputGroup.Text>
                         <div style={{
                             paddingLeft: "5px"
-                        }}>
-                            <InputTimePicker handleDateChange={updateFecha} selectedHour={seledtedDate} />
-                        </div>
+                        }}> <InputTimePicker handleDateChange={updateFecha} selectedHour={seledtedDate} /> </div>
                     </InputGroup>
                 </Form.Group>
 
                 <Form.Group controlId="formAgenda">
                     <Form.Label> Agenda </Form.Label>
                     <InputGroup>
-                        {!isPercentageVisible &&
-                            <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
-                                <option value="NATALIA">Natalia</option>
-                                <option value="GASTO">Gasto</option>
-                            </Form.Select>
-                        }
-
-                        {isPercentageVisible &&
-                            <Col md={8} sm={8}>
-                                <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
-                                    <option value="NATALIA">Natalia</option>
-                                    <option value="GASTO">Gasto</option>
-                                </Form.Select>
-                            </Col>}
-
-                        {isPercentageVisible &&
-                            <Form.Select
-                                size="lg"
-                                value={appointment.porcentaje}
-                                onChange={e => setPorcentaje(e.target.value, appointment)}>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </Form.Select>
-                        }
-
-                        <InputGroup.Text onClick={e => setPercentageVisible(!isPercentageVisible)}>
-                            <BsPercent />
+                        <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
+                            <option value="NATALIA">Natalia</option>
+                        </Form.Select>
+                        <InputGroup.Text>
+                            {appointment.porcentaje} <BsPercent />
                         </InputGroup.Text>
                     </InputGroup>
                 </Form.Group>
@@ -89,6 +64,9 @@ const CreateForm = ({
                         {isPhoneAvailable && <Form.Control size="md" value={appointment.telefono} onChange={e => setTelefono(e.target.value, appointment)} />}
                     </InputGroup>
                 </Form.Group>
+
+
+                {/* SERVICIOS */}
 
                 <Form.Group>
                     <Form.Label> Servicios </Form.Label>

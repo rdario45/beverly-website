@@ -80,8 +80,6 @@ const initialState = {
   },
   orientation: "horizontal",
   isPhoneAvailable: true,
-  isPercentageVisible: true,
-  error: "",
   logout: false,
   headerRef: React.createRef(null),
   headerHeight: 0,

@@ -4,7 +4,7 @@ import 'chart.js/auto';
 function ChartPieBeverly({ data }) {
     return (
         <div style={{
-            width: "70%",
+            width: "80%",
             margin: "50px auto",
             color: "red"
         }}>

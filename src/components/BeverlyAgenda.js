@@ -4,7 +4,9 @@ import WhatsAppIcon from "./WhatsAppIcon";
 
 const BeverlyAgenda = ({ id, citas, onDelete, onUpdate }) => {
     return (
-        <Table bordered hover>
+        <Table bordered hover style={{
+            borderColor: "#f78994"
+        }}>
             <thead>
                 <tr>
                     <th>HORA</th>

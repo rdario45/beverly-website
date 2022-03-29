@@ -1,7 +1,6 @@
 import { useReducer } from 'react';
 import AuthReducer from '../store/AuthReducer';
 import { send, signin } from "../../api/AuthController";
-import useRedirectLoginEffect from "../effects/useRedirectLoginEffect";
 
 function useBeverlyAuth(authState) {
     const [state, dispatch] = useReducer(AuthReducer, authState);

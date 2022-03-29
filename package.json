@@ -1,13 +1,11 @@
 {
-  "name": "beverly-front",
+  "name": "beverly-website",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/pickers": "^3.3.10",
     "bootstrap": "^5.1.3",
-    "canvasjs": "^1.8.3",
-    "chart.js": "^3.7.0",
     "date-fns": "^2.27.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.4",
@@ -15,10 +13,7 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.0.2",
-    "react-scripts": "4.0.3",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10"
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

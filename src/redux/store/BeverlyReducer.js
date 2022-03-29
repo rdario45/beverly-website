@@ -20,10 +20,6 @@ const BveverlyReducer = (state, action) => {
       return { ...state, bar: action.payload };
     case 'isPhoneAvailable':
       return { ...state, isPhoneAvailable: action.payload };
-    case 'isPercentageVisible':
-      return { ...state, isPercentageVisible: action.payload };
-    case 'error':
-      return { ...state, error: action.payload };
     case 'logout':
       return { ...state, logout: action.payload };
     case 'headerHeight':

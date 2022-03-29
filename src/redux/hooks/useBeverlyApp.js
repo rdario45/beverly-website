@@ -147,6 +147,7 @@ export default function useBeverlyApp(initialState) {
   }
 
   const setPorcentaje = (porcentaje, appointment) => {
+    console.log("porcentaje", porcentaje)
     dispatch({
       type: "createForm",
       payload: Object.assign(appointment, { porcentaje })
@@ -196,13 +197,6 @@ export default function useBeverlyApp(initialState) {
     })
   }
 
-  const setPercentageVisible = (booleanValue) => {
-    dispatch({
-      type: "isPercentageVisible",
-      payload: booleanValue
-    })
-  }
-
   return {
     headerCtrl: {
       selectedDate: state.selectedDate,
@@ -218,7 +212,6 @@ export default function useBeverlyApp(initialState) {
         appointment: state.createForm,
         seledtedDate: state.selectedDate,
         isPhoneAvailable: state.isPhoneAvailable,
-        isPercentageVisible: state.isPercentageVisible,
         updateFecha,
         onSaveAppointment,
         setAgenda,
@@ -228,7 +221,6 @@ export default function useBeverlyApp(initialState) {
         removeService,
         setPhoneAvailable,
         setTelefono,
-        setPercentageVisible,
         setPorcentaje,
       }
     },

@@ -37,12 +37,7 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
                         })
                     });
                 },
-                (response) => {
-                    dispatch({
-                        type: "error",
-                        payload: response.status + " - " + response.statusText
-                    });
-                },
+                (response) => {},
                 dispatch)
         }
     }, [selectedDate]);
