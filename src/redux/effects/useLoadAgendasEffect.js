@@ -14,13 +14,17 @@ const useLoadAgendasEffect = ({ selectedDate, accessToken, dispatch }) => {
             finalDate.setDate(startDate.getDate() + 6);
             return [startDate, finalDate];
         }
+
         const [startDate, finalDate] = calcWeekPeriod(selectedDate);
+
         const buildWeek = (agendas) => {
+
             const filter = (agenda, offset) => {
                 const sDate = new Date(selectedDate.toDateString());
                 sDate.setDate(sDate.getDate() - sDate.getDay() + offset);
                 return agenda.fecha === sDate.getTime().toString();
             }
+
             return {
                 Monday: agendas.filter(agenda => filter(agenda, 1)),
                 Tuesday: agendas.filter(agenda => filter(agenda, 2)),
@@ -31,21 +35,22 @@ const useLoadAgendasEffect = ({ selectedDate, accessToken, dispatch }) => {
             }
         }
 
-        if(isAccessTokenAvaileble) {
+        if (isAccessTokenAvaileble) {
+
             withHttpWrapper(
                 findAgenda([
                     new Date(startDate.toDateString()).getTime().toString(),
                     new Date(finalDate.toDateString()).getTime().toString(),
                     accessToken
-                ]),
-                (body) => {
+                ]), (body) => {
                     dispatch({
                         type: "currentWeek",
                         payload: buildWeek(body.data)
                     });
-                },
-                (response) => {}, dispatch)
-        }   
+
+                }, (response) => { }, dispatch);
+
+        }
 
     }, [selectedDate]);
 }

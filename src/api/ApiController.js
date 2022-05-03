@@ -3,14 +3,14 @@ const findAgenda = (args) => {
     return fetch(`${process.env.REACT_APP_API}/agendas/${fechaIni}/${fechaFin}?access_token=${accessToken}`);
 }
 
-const findBalancePie = (args) => {
+const findChartPie = (args) => {
     const [fechaIni, fechaFin, accessToken] = args;
-    return fetch(`${process.env.REACT_APP_API}/agendas/balance/pie/${fechaIni}/${fechaFin}?access_token=${accessToken}`);
+    return fetch(`${process.env.REACT_APP_API}/agendas/charts/pie/${fechaIni}/${fechaFin}?access_token=${accessToken}`);
 }
 
-const findBalanceBar = (args) => {
+const findChartBar = (args) => {
     const [fechaIni, fechaFin, accessToken] = args;
-    return fetch(`${process.env.REACT_APP_API}/agendas/balance/bar/${fechaIni}/${fechaFin}?access_token=${accessToken}`);
+    return fetch(`${process.env.REACT_APP_API}/agendas/charts/bar/${fechaIni}/${fechaFin}?access_token=${accessToken}`);
 }
 
 const createAppointment = (args) => {
@@ -30,8 +30,8 @@ const deleteAppointment = (args) => {
 
 export {
     findAgenda,
-    findBalancePie,
-    findBalanceBar,
+    findChartPie,
+    findChartBar,
     createAppointment,
     updateAppointment,
     deleteAppointment
