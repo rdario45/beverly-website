@@ -15,15 +15,11 @@ const CreateForm = ({
     removeService,
     isPhoneAvailable,
     setPhoneAvailable,
-    setTelefono,
-    setPercentageVisible,
-    setPorcentaje
+    setTelefono
 }) => {
-
     const handleSubmit = (e) => {
         e.preventDefault();
     }
-
     return (
         <Stack direction="vertical" gap={5}>
             <Form onSubmit={handleSubmit}>
@@ -40,10 +36,10 @@ const CreateForm = ({
                 </Form.Group>
 
                 <Form.Group controlId="formAgenda">
-                    <Form.Label> Agenda </Form.Label>
                     <InputGroup>
                         <Form.Select size="lg" value={appointment.agenda} onChange={e => setAgenda(e.target.value, appointment)}>
                             <option value="NATALIA">Natalia</option>
+                            <option value="LIZETH">Lizeth</option>
                         </Form.Select>
                         <InputGroup.Text>
                             {appointment.porcentaje} <BsPercent />
@@ -64,10 +60,6 @@ const CreateForm = ({
                         {isPhoneAvailable && <Form.Control size="md" value={appointment.telefono} onChange={e => setTelefono(e.target.value, appointment)} />}
                     </InputGroup>
                 </Form.Group>
-
-
-                {/* SERVICIOS */}
-
                 <Form.Group>
                     <Form.Label> Servicios </Form.Label>
                     {appointment.servicios.map((servicio, key) =>
