@@ -147,7 +147,6 @@ export default function useBeverlyApp(initialState) {
   }
 
   const setPorcentaje = (porcentaje, appointment) => {
-    console.log("porcentaje", porcentaje)
     dispatch({
       type: "createForm",
       payload: Object.assign(appointment, { porcentaje })

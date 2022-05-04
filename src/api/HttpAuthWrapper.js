@@ -1,7 +1,5 @@
 const withHttpWrapper = (promise, onSuccess, onFailure, dispatch) => {
 
-    console.log("http");
-
     promise.then(response => {
 
         if (response.status === 200) {

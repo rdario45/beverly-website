@@ -13,27 +13,42 @@ const BeverlyHeader = ({
     handleClose,
     createFormCtrlPkg,
 }) => {
-    return (        
+    return (
         <Stack direction="horizontal" ref={beverlyHeaderRef}>
+
             <BeverlySidebar />
+
             <div style={{
+                display: "inline-flex",
                 margin: "auto",
-                fontSize: "48px",
-            }}> Agendas
+
+            }}>
+                <div style={{
+                    fontSize: "32px"
+                }}> Agenda </div>
+
                 <div style={{
                     paddingLeft: "10px",
-                    display: "inline-flex",
-                    innerWidth: "200px"
+                    paddingTop: "10px",
+
+                    margin: "auto",
+                    width: "150px"
+
                 }}>
+
                     <InputDatePicker selectedDate={selectedDate} handleDateChange={updateFecha} />
                 </div>
+
             </div>
 
             <div style={{
-                paddingRight: "15px"
+                paddingRight: "15px",
+                paddingLeft: "150px"
             }}>
                 <VscCalendar onClick={handleShow} />
             </div>
+
+            {/* HIDDEN */}
 
             <Modal show={isModalVisible} onHide={handleClose}>
                 <Modal.Body>
@@ -42,6 +57,7 @@ const BeverlyHeader = ({
                     />
                 </Modal.Body>
             </Modal>
+
         </Stack>
     );
 }

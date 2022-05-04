@@ -13,6 +13,7 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
         const finalDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
         
         if (isAccessTokenAvaileble) {
+
             withHttpWrapper(
                 findChartPie(
                     [new Date(startDate.toDateString()).getTime().toString(),
