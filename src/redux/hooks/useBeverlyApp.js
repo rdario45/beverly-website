@@ -12,6 +12,13 @@ import { createAppointment, updateAppointment, deleteAppointment } from "../../a
 
 export default function useBeverlyApp(initialState) {
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
+  
+  console.log("useBeverlyApp")
+
+  useRedirectLoginEffect({
+    logout: state.logout,
+    dispatch
+  });
   useWindowsSizeEffect({
     dispatch
   });
@@ -36,10 +43,7 @@ export default function useBeverlyApp(initialState) {
     accessToken: state.accessToken,
     dispatch
   });
-  useRedirectLoginEffect({
-    logout: state.logout,
-    dispatch
-  });
+
   useUpdateHeaderRefEffect({
     headerRef: state.headerRef,
     dispatch

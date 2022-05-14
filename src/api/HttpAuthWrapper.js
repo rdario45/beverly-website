@@ -2,6 +2,7 @@ const withHttpWrapper = (promise, onSuccess, onFailure, dispatch) => {
 
     promise.then(response => {
 
+        console.log("response.status", response.status )
         if (response.status === 200) {
 
             response.json().then(body => {
