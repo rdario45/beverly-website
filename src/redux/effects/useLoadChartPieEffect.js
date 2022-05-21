@@ -23,14 +23,18 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
                 (body) => {
                     const data = [];
                     let sum = 0;
+                    let total = 0;
 
                     for (const [key, value] of Object.entries(body.data)) {
                         data.push(value[0]);
                         sum = sum + value[1];
+                        total = total + value[1];
                     }
                     
                     const labels = Object.keys(body.data);
+
                     const dataset = Object.assign(pie.datasets[0], {data})
+
                     labels.push("BEVERLYSPA");
                     data.push(sum)
 
@@ -40,6 +44,11 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
                             ...pie, labels,
                             datasets: [ dataset ]
                         })
+                    });
+
+                    dispatch({
+                        type: "total",
+                        payload: total + sum
                     });
                     
                 },

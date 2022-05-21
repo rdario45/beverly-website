@@ -1,17 +1,12 @@
-import { Stack, Modal } from "react-bootstrap";
+import { Stack } from "react-bootstrap";
 import InputDatePicker from "./DateInputPicker";
 import BeverlySidebar from "./BeverlySidebar";
-import { VscCalendar } from "react-icons/vsc";
-import CreateForm from "./CreateCitaForm";
 
 const BeverlyHeader = ({
     beverlyHeaderRef,
-    isModalVisible,
     updateFecha,
     selectedDate,
-    handleShow,
-    handleClose,
-    createFormCtrlPkg,
+    icons
 }) => {
     return (
         <Stack direction="horizontal" ref={beverlyHeaderRef}>
@@ -41,22 +36,17 @@ const BeverlyHeader = ({
 
             </div>
 
-            <div style={{
-                paddingRight: "15px",
-                paddingLeft: "150px"
-            }}>
-                <VscCalendar onClick={handleShow} />
-            </div>
+            {icons.map(
+                icon =>
 
-            {/* HIDDEN */}
+                    <div style={{
+                        paddingRight: "15px",
+                        // paddingLeft: "150px"
+                    }}>
+                        {icon}
+                    </div>
+            )}
 
-            <Modal show={isModalVisible} onHide={handleClose}>
-                <Modal.Body>
-                    <CreateForm
-                        {...createFormCtrlPkg}
-                    />
-                </Modal.Body>
-            </Modal>
 
         </Stack>
     );

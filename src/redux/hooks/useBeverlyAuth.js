@@ -41,6 +41,17 @@ function useBeverlyAuth(authState) {
         })
     }
 
+    const logout = () => {
+        dispatch({
+            type: "accessToken",
+            payload: null
+        })
+        dispatch({
+            type: "waitingOTP",
+            payload: false
+        })
+    }
+
     return [state.accessToken, {
         waitingOTP: state.waitingOTP,
         sendcodeCtrl: {
@@ -53,8 +64,8 @@ function useBeverlyAuth(authState) {
             code: state.code,
             setCode,
             login
-        }
-
+        },
+        logout
     }];
 }
 

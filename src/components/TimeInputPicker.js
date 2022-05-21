@@ -4,9 +4,9 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-const InputTimePicker = ({ handleDateChange, selectedHour }) => (
+const InputTimePicker = ({ handleDateChange, selectedHour}) => (
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <TimePicker value={selectedHour} onChange={handleDateChange} />
+    <TimePicker value={selectedHour} onChange={handleDateChange} autoOk={true}/>
   </MuiPickersUtilsProvider>
 )
 

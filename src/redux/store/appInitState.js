@@ -66,7 +66,7 @@ const initialState = {
   createForm: {
     cliente: "",
     agenda: "NATALIA",
-    servicios: [{ nombre: "" }],
+    servicios: [{ nombre: "manos semi" , valor : 40000}],
     telefono: "+57 ",
     porcentaje: 50
   },
@@ -79,10 +79,11 @@ const initialState = {
     Saturday: []
   },
   orientation: "horizontal",
-  isPhoneAvailable: true,
+  isPhoneAvailable: false,
   logout: false,
   headerRef: React.createRef(null),
   headerHeight: 0,
+  total: 0
 }
 
 export default initialState;

@@ -24,6 +24,8 @@ const BveverlyReducer = (state, action) => {
       return { ...state, logout: action.payload };
     case 'headerHeight':
         return { ...state, headerHeight: action.payload };
+    case 'total':
+        return { ...state, total: action.payload };
     default:
       throw new Error();
   }

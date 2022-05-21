@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import GlobalReducer from '../store/BeverlyReducer';
+import GlobalReducer from '../store/AppBeverlyReducer';
 import useWindowsSizeEffect from "../effects/useWindowsSizeEffect";
 import useLoadAgendasEffect from "../effects/useLoadAgendasEffect";
 import useLoadChartPieffect from "../effects/useLoadChartPieEffect";
@@ -12,7 +12,7 @@ import { createAppointment, updateAppointment, deleteAppointment } from "../../a
 
 export default function useBeverlyApp(initialState) {
   const [state, dispatch] = useReducer(GlobalReducer, initialState);
-  
+
   console.log("useBeverlyApp")
 
   useRedirectLoginEffect({
@@ -43,7 +43,6 @@ export default function useBeverlyApp(initialState) {
     accessToken: state.accessToken,
     dispatch
   });
-
   useUpdateHeaderRefEffect({
     headerRef: state.headerRef,
     dispatch
@@ -81,7 +80,7 @@ export default function useBeverlyApp(initialState) {
         payload: Object.assign({
           cliente: "",
           agenda: "NATALIA",
-          servicios: [{ nombre: "", valor: "" }],
+          servicios: [{ nombre: undefined, valor: undefined }],
           telefono: "+57 ",
           porcentaje: 50
         })
@@ -168,7 +167,13 @@ export default function useBeverlyApp(initialState) {
   const addService = (appointment) => {
     dispatch({
       type: "createForm",
-      payload: Object.assign(appointment, { servicios: appointment.servicios.concat({}) })
+      payload: Object.assign(appointment, {
+        servicios: appointment.servicios.concat({
+          nombre: "pies tradi",
+          valor: 15000
+        })
+      })
+
     })
   }
 
@@ -212,7 +217,7 @@ export default function useBeverlyApp(initialState) {
       onSaveAppointment,
       beverlyHeaderRef: state.headerRef,
       createFormCtrlPkg: {
-        appointment: state.createForm,
+        cita: state.createForm,
         seledtedDate: state.selectedDate,
         isPhoneAvailable: state.isPhoneAvailable,
         updateFecha,
@@ -228,7 +233,7 @@ export default function useBeverlyApp(initialState) {
       }
     },
     agendasCtrl: {
-      currentWeek: state.currentWeek,
+      week: state.currentWeek,
       activeDay: state.activeDay,
       onDelete,
       onUpdate,
@@ -238,6 +243,10 @@ export default function useBeverlyApp(initialState) {
       orientation: state.orientation,
       pie: state.pie,
       bar: state.bar,
+      total: state.total
+    },
+    monitorCtrl: {
+      orientation: state.orientation,
     }
   }
 }

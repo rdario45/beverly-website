@@ -6,7 +6,7 @@ import {
 
 const InputDatePicker = ({ handleDateChange, selectedDate }) => (
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <DatePicker value={selectedDate} onChange={handleDateChange} />
+    <DatePicker value={selectedDate} onChange={handleDateChange} autoOk={true} />
   </MuiPickersUtilsProvider>
 )
 
