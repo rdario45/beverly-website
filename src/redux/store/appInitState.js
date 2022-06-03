@@ -66,7 +66,7 @@ const initialState = {
   createForm: {
     cliente: "",
     agenda: "NATALIA",
-    servicios: [{ nombre: "manos semi" , valor : 40000}],
+    servicios: [{ nombre: "" , valor : undefined}],
     telefono: "+57 ",
     porcentaje: 50
   },

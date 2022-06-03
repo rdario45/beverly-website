@@ -31,14 +31,16 @@ function useBeverlyAuth(authState) {
 
     const login = (phone, code) => {
         signin([phone, code]).then(response => {
-            response.json().then(body => {
-                dispatch({
-                    type: "accessToken",
-                    payload: body.accessToken
-                })
-                localStorage.setItem("accessToken", body.accessToken);
-            });
-        })
+            if (response.status === 200) {
+                response.json().then(body => {
+                    dispatch({
+                        type: "accessToken",
+                        payload: body.accessToken
+                    })
+                    localStorage.setItem("accessToken", body.accessToken);
+                });
+            }
+        });
     }
 
     const logout = () => {

@@ -9,7 +9,6 @@ import BeverlyHeader from "./components/BeverlyHeader";
 import BeverlyAuthScreen from './screens/BeverlyAuthScreen';
 import AgendasScreen from './screens/AgendasScreen';
 import BalanceScreen from './screens/BalanceScreen';
-import MonitorScreen from './screens/MonitorScreen';
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { BsCalendarPlus } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
@@ -20,8 +19,7 @@ export default function BeverlyApp() {
   const [accessToken, authCtrl] = useBeverlyAuth(authInitState);
   const { headerCtrl,
     agendasCtrl,
-    balanceCtrl,
-    monitorCtrl
+    balanceCtrl
   } = useBeverlyApp(Object.assign(appInitState, { accessToken }));
 
   if (!accessToken) {
@@ -31,8 +29,6 @@ export default function BeverlyApp() {
   const icon1 = <AiOutlineUserDelete onClick={authCtrl.logout} />
 
   const icon2 = <BsCalendarPlus onClick={headerCtrl.handleShow} />
-
-  const icon3 = <FaPlay onClick={headerCtrl.play} />
 
   const modal = <Modal show={headerCtrl.isModalVisible} onHide={headerCtrl.handleClose}>
     <Modal.Body>
@@ -44,7 +40,7 @@ export default function BeverlyApp() {
 
   return (
     <Stack direction="vertical">
-      <BeverlyHeader {...headerCtrl} icons={[icon1, icon2, icon3]} />
+      <BeverlyHeader {...headerCtrl} icons={[icon1, icon2]} />
       <div style={{
         height: (window.innerHeight - headerCtrl.headerHeight)
       }}>
@@ -53,7 +49,6 @@ export default function BeverlyApp() {
           <Routes>
             <Route path="/" element={<AgendasScreen {...agendasCtrl} />}></Route>
             <Route path="/balance" element={<BalanceScreen {...balanceCtrl} />}></Route>
-            <Route path="/monitor" element={<MonitorScreen {...monitorCtrl} />}></Route>
           </Routes>
         </BrowserRouter>
 

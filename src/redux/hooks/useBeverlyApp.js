@@ -169,8 +169,8 @@ export default function useBeverlyApp(initialState) {
       type: "createForm",
       payload: Object.assign(appointment, {
         servicios: appointment.servicios.concat({
-          nombre: "pies tradi",
-          valor: 15000
+          nombre: "",
+          valor: undefined
         })
       })
 
@@ -244,9 +244,6 @@ export default function useBeverlyApp(initialState) {
       pie: state.pie,
       bar: state.bar,
       total: state.total
-    },
-    monitorCtrl: {
-      orientation: state.orientation,
     }
   }
 }

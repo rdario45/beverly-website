@@ -9,8 +9,10 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
     useEffect(() => {
         
         const today = new Date(selectedDate.toDateString());
-        const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-        const finalDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        
+        const startDate = new Date(today.getFullYear(), today.getMonth(), 15);
+
+        const finalDate = new Date(today.getFullYear(), today.getMonth() + 1, 15);
         
         if (isAccessTokenAvaileble) {
 
