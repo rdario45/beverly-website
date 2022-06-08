@@ -3,19 +3,26 @@ import { findChartPie } from "../../api/ApiController";
 import { withHttpWrapper } from "../../api/HttpAuthWrapper";
 
 const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
-    
+
     const isAccessTokenAvaileble = !!accessToken;
-    
+
     useEffect(() => {
-        
         const today = new Date(selectedDate.toDateString());
-        
-        const startDate = new Date(today.getFullYear(), today.getMonth(), 15);
 
-        const finalDate = new Date(today.getFullYear(), today.getMonth() + 1, 15);
-        
+        let startDate
+        let finalDate
+
+        const fifth = new Date(today.getFullYear(), today.getMonth(), 15);
+
+        if (today < fifth) {
+            startDate = new Date(today.getFullYear(), today.getMonth() - 1, 15);
+            finalDate = Object.assign(fifth);
+        } else {
+            startDate = Object.assign(fifth);
+            finalDate = new Date(today.getFullYear(), today.getMonth() + 1, 15);
+        }
+
         if (isAccessTokenAvaileble) {
-
             withHttpWrapper(
                 findChartPie(
                     [new Date(startDate.toDateString()).getTime().toString(),
@@ -32,11 +39,9 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
                         sum = sum + value[1];
                         total = total + value[1];
                     }
-                    
+
                     const labels = Object.keys(body.data);
-
-                    const dataset = Object.assign(pie.datasets[0], {data})
-
+                    const dataset = Object.assign(pie.datasets[0], { data });
                     labels.push("BEVERLYSPA");
                     data.push(sum)
 
@@ -44,7 +49,7 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
                         type: "pie",
                         payload: Object.assign({}, {
                             ...pie, labels,
-                            datasets: [ dataset ]
+                            datasets: [dataset]
                         })
                     });
 
@@ -52,9 +57,9 @@ const useLoadChartPieffect = ({ selectedDate, accessToken, pie, dispatch }) => {
                         type: "total",
                         payload: total + sum
                     });
-                    
+
                 },
-                (response) => {}, dispatch)
+                (response) => { }, dispatch)
         }
     }, [selectedDate]);
 }

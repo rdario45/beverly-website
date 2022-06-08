@@ -18,7 +18,6 @@ const BeverlySidebar = () => {
           <ul>
             <li> <a href="/"> [Agendas] </a> </li>
             <li> <a href="/balance"> [Balance] </a> </li>
-            <li> <a href="/monitor"> [Monitor] </a> </li>
           </ul>
         </Offcanvas.Body>
       </Offcanvas>

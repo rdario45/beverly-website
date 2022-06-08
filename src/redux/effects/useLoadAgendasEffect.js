@@ -9,9 +9,13 @@ const useLoadAgendasEffect = ({ selectedDate, accessToken, dispatch }) => {
     useEffect(() => {
         const calcWeekPeriod = (selectedDate) => {
             const startDate = new Date(selectedDate.toDateString());
+            
             startDate.setDate(startDate.getDate() - selectedDate.getDay());
+
             const finalDate = new Date(startDate.toDateString());
+            
             finalDate.setDate(startDate.getDate() + 6);
+            
             return [startDate, finalDate];
         }
 

@@ -15,7 +15,7 @@ const findChartBar = (args) => {
 
 const createAppointment = (args) => {
     const [cita, accessToken] = args;
-    return fetch(`${process.env.REACT_APP_API}/rdario45/beverly-websiterdario45/beverly-website?access_token=${accessToken}`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cita) });
+    return fetch(`${process.env.REACT_APP_API}/citas?access_token=${accessToken}`, { method: "POST", headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cita) });
 } 
 
 const updateAppointment = (args) => {

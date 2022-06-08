@@ -7,19 +7,8 @@ function BalanceScreen({ pie, bar, orientation, total }) {
   
   return (
     <Container>
-      {orientation === "vertical" ?
-        <Col>
-          <Row> <ChartPieBeverly data={pie} /> </Row>
-        </Col> :
-        <>
-          <Row>
-            <Col> {xTotal} </Col>
-          </Row>
-          <Row>
-            <Col> <ChartPieBeverly data={pie} /> </Col>
-          </Row>
-        </>
-      }
+      <Row> <Col> <ChartPieBeverly data={pie} /> </Col></Row>
+      <Row> <Col> {xTotal} </Col> </Row>
     </Container>
   )
 }

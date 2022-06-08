@@ -11,7 +11,6 @@ import AgendasScreen from './screens/AgendasScreen';
 import BalanceScreen from './screens/BalanceScreen';
 import { AiOutlineUserDelete } from "react-icons/ai";
 import { BsCalendarPlus } from "react-icons/bs";
-import { FaPlay } from "react-icons/fa";
 import { Modal } from "react-bootstrap";
 import CreateForm from "./components/CreateCitaForm";
 
